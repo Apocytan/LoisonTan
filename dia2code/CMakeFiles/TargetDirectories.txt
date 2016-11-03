@@ -1,3 +1,0 @@
-/home/alex/plt/dia2code/CMakeFiles/edit_cache.dir
-/home/alex/plt/dia2code/CMakeFiles/rebuild_cache.dir
-/home/alex/plt/dia2code/CMakeFiles/dia2code.dir
