@@ -19,14 +19,13 @@ namespace engine {
     // Associations
     // Attributes
   protected:
-    const state::State& currentState;
+    /*const state::State& currentState;
     const CommandSet& commands;
-    ActionList& actions;
+    ActionList& actions;*/
     bool canAct;
     // Operations
   public:
-    //Ruler (ActionList& , const state::State& , const CommandSet& );
-      Ruler();
+    Ruler (/*ActionList& actions, const state::State& cstate, const CommandSet& command*/);
     ~Ruler ();
     void apply ();
     void setcanAct (bool can);

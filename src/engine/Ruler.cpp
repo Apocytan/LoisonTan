@@ -10,11 +10,10 @@
 
 namespace engine{
 
-    /*Ruler::Ruler (ActionList& actions, const state::State& , const CommandSet& ): actions(actions){ 
-        
-    }*/
-    Ruler::Ruler(){
-      
+    Ruler::Ruler (/*ActionList& actions, const state::State& cstate , const CommandSet& command */){ 
+        /*this->actions = actions;
+        this->currentState=cstate;
+        this->commands=command;*/
     }
     
     Ruler::~Ruler() {   
