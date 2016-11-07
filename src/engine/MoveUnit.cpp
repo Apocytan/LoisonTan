@@ -20,12 +20,5 @@ namespace engine{
         /*this->prevDirection=prev;
         this->newDirection=next;*/
     }
-    void MoveUnit::apply (state::State& s, bool notify){
-        
-        notify = 1;
-    }
-    void MoveUnit::undo (state::State& s, bool notify){
-        
-        notify =0;
-    }
+
 }

@@ -25,8 +25,6 @@ namespace engine {
     MoveUnit (int index);
     void setCoords (int destination_x, int destination_y) const;
     void setDirection (state::Direction prev, state::Direction next) const;
-    void apply (state::State& s, bool notify);
-    void undo (state::State& s, bool notify);
   };
 
 };

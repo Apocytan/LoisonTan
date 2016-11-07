@@ -8,7 +8,7 @@ namespace engine {
 }
 
 #include "Action.h"
-#include "../state/StructureTypeID.h"
+
 namespace engine {
 
   /// class CaptureBuilding - 
@@ -21,8 +21,6 @@ namespace engine {
     // Operations
   public:
     CaptureBuilding (int x, int y, state::StructureTypeID BuildingType);
-    void apply (state::State& s, bool notify);
-    void undo (state::State& s, bool notify);
   };
 
 };

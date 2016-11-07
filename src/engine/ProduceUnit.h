@@ -8,7 +8,7 @@ namespace engine {
 }
 
 #include "Action.h"
-#include "../state/MobileElement.h"
+
 namespace engine {
 
   /// class ProduceUnit - 
@@ -21,8 +21,6 @@ namespace engine {
     // Operations
   public:
     ProduceUnit (int x, int y, state::MobileElement ProduceUnitType);
-    void apply (state::State& s, bool notify);
-    void undo (state::State& s, bool notify);
   };
 
 };

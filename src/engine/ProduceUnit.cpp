@@ -42,15 +42,4 @@ namespace engine {
         }
     }
     
-    void apply (state::State& s, bool notify){
-        if (notify==1){
-            
-        }
-    }
-    void undo (state::State& s, bool notify){
-        if (notify==0){
-            
-        }
-    }
-    
 }

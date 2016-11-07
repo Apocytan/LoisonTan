@@ -19,12 +19,7 @@ namespace engine{
     Action* ActionList::get (int i) const{
         
     }
-    void ActionList::apply (){
-        
-    }
-    void ActionList::undo (){
-        
-    }
+
     void ActionList::add (Action* action){
         
     }

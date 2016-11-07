@@ -4,10 +4,6 @@
 
 
 namespace state {
-  class StateEvent;
-}
-
-namespace state {
 
   /// class StateObserver - 
   class StateObserver {

@@ -18,7 +18,7 @@ namespace state {
   public:
     Fighter ();
     TypeID const getTypeID ();
-    bool const equals (const Element& other) override;
+    bool const equals (const Element& other);
   };
 
 };

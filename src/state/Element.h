@@ -34,7 +34,7 @@ namespace state {
     void setOrientation (Direction o);
     virtual bool isStatic () const;
     virtual TypeID getTypeID () const;
-    virtual bool equals (const Element& other) ;
+    virtual bool equals (const Element& other) const = 0;
   };
 
 };

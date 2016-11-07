@@ -12,10 +12,10 @@ namespace engine {
         this->y = y;
         this->BuildingType = BuildingType;
      }
-    void CaptureBuilding::apply (state::State& s, bool notify){
+    /*void CaptureBuilding::apply (state::State& s, bool notify){
         
     }
     void CaptureBuilding::undo (state::State& s, bool notify){
         
-    }
+    }*/
 }

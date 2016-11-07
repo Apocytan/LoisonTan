@@ -21,8 +21,6 @@ namespace engine {
   public:
     AttackEnemyUnit (int attacker, int defender);
     ~AttackEnemyUnit ();
-    void apply (state::State& s, bool notify);
-    void undo (state::State& s, bool notify);
   };
 
 };

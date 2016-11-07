@@ -15,10 +15,5 @@ namespace engine {
     AttackEnemyUnit::~AttackEnemyUnit (){
         
     }
-    void AttackEnemyUnit::apply (state::State& s, bool notify){
 
-    }
-    void AttackEnemyUnit::undo (state::State& s, bool notify){
-
-    }
 }

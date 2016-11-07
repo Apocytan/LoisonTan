@@ -26,8 +26,6 @@ namespace engine {
     ~ActionList ();
     int size () const;
     Action* get (int i) const;
-    void apply ();
-    void undo ();
     void add (Action* action);
     void addaply (Action* action);
   };

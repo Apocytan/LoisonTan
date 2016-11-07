@@ -38,7 +38,7 @@ namespace state {
     /// Mobile ou Statique ?
     bool isStatic () const;
     virtual bool isAir () const;
-    virtual bool equals (const Element& other);
+    virtual bool equals (const Element& other) const = 0;
     void setColor (int c);
     int const getColor ();
     void setRank (bool rank);
