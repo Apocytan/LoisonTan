@@ -7,7 +7,7 @@ namespace engine {
 
   enum EngineMode {
     PLAY     = 0,
-    CLOSE
+    CLOSE     = 1
   };
 
 };

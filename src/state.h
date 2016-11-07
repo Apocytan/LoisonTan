@@ -2,5 +2,28 @@
 #ifndef __STATE__H
 #define __STATE__H
 
+#include "state/Direction.h"
+#include "state/TypeID.h"
+#include "state/Element.h"
+#include "state/MobileElement.h"
+#include "state/WallTypeID.h"
+#include "state/StaticElement.h"
+#include "state/Wall.h"
+#include "state/Air.h"
+#include "state/Ground.h"
+#include "state/Fighter.h"
+#include "state/Infantry.h"
+#include "state/Tank.h"
+#include "state/AntiAir.h"
+#include "state/SpaceTypeID.h"
+#include "state/Space.h"
 #include "state/StateObserver.h"
+#include "state/Observable.h"
+#include "state/ElementList.h"
+#include "state/ElementGrid.h"
+#include "state/State.h"
+#include "state/StateEventID.h"
+#include "state/StateEvent.h"
+#include "state/StructureTypeID.h"
+#include "state/Structure.h"
 #endif

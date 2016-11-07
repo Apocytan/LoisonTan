@@ -12,7 +12,7 @@ namespace state {
     INFANTRY     = 3,
     TANK     = 4,
     ANTIAIR     = 5,
-    STRUCTURE
+    STRUCTURE     = 6
   };
 
 };
