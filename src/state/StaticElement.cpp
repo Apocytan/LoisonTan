@@ -14,7 +14,13 @@ namespace state {
     bool StaticElement::isSpace () const{
         return 0; // à modifier plus tard
     }
-
+    // erreurs de référence indéfinie lorsque l'on fait ca
+    bool StaticElement::isFree () const{
+        return 0; //modif plus tard
+    }
+    TypeID Element::getTypeID() const{
+        return WALL; //test
+    }
 
 
 }

@@ -7,19 +7,24 @@
 #include <typeinfo>
 
 namespace state{
-    Structure (StructureTypeID sid){  
+    Structure::Structure (){
+        
     }
-    bool isFree () const{
-        if (free==){
-        return 1;
+    Structure::Structure (StructureTypeID sid){  
+    }
+    
+    bool Structure::isFree () const{
+        if (free==1){
+            return 1;
         }
         else{
             return 0;
         }
         
     }
-    TypeID getTypeID () const{
-        
+    
+    TypeID Structure::getTypeID () const{
+        return STRUCTURE; //test
     }
     StructureTypeID Structure::getStructureTypeID () const{
         return structureTypeID;
@@ -29,7 +34,7 @@ namespace state{
         this->free=free;
     }
     
-    bool equals (const Element& other) const{
+    bool Structure::equals (const Element& other) const{
         if (typeid(this).name()==typeid(other).name()){
             return true;
         }else{

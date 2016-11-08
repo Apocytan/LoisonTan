@@ -75,5 +75,8 @@ namespace state{
             cost=co;
         }
         
-        
+        // étrange
+        TypeID MobileElement::getTypeID() const{
+            return INFANTRY;
+        }
 };

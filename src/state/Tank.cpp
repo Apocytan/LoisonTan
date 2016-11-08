@@ -10,10 +10,10 @@ namespace state{
     Tank::Tank (){
 
     }
-    TypeID const Tank::getTypeID (){
+    TypeID Tank::getTypeID () const{
         return TANK;
     }
-    bool const Tank::equals (const Element& other){
+    bool Tank::equals (const Element& other) const{
                 if (typeid(this).name()==typeid(other).name()){
             return true;
         }else{

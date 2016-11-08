@@ -9,7 +9,6 @@ namespace state {
 }
 
 #include "WallTypeID.h"
-#include "TypeID.h"
 #include "StaticElement.h"
 
 namespace state {
@@ -22,7 +21,6 @@ namespace state {
   public:
     Wall (WallTypeID wid);
     bool isSpace () const;
-    TypeID getTypeID () const;
     WallTypeID getWallTypeID () const;
     void setWallTypeID (WallTypeID wid);
     bool equals (const Element& other) const;

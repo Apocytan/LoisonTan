@@ -3,11 +3,15 @@
 #define ENGINE__PRODUCEUNIT__H
 
 
+namespace state {
+  class MobileElement;
+};
 namespace engine {
   class Action;
 }
 
 #include "Action.h"
+#include "state/MobileElement.h"
 
 namespace engine {
 
@@ -17,10 +21,10 @@ namespace engine {
   protected:
     int x;
     int y;
-    state::MobileElement ProduceUnitType;
+    state::MobileElement* unit;
     // Operations
   public:
-    ProduceUnit (int x, int y, state::MobileElement ProduceUnitType);
+    ProduceUnit (int x, int y, state::MobileElement* unit);
   };
 
 };

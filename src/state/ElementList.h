@@ -5,8 +5,8 @@
 #include <vector>
 
 namespace state {
-  class Element;
   class State;
+  class Element;
   class ElementList;
   class Observable;
 }
@@ -19,9 +19,8 @@ namespace state {
   class ElementList : public state::Observable {
     // Attributes
   public:
-    std::vector<Element*> elements;
-  protected:
     State& s;
+    std::vector<Element*> elements;
     // Operations
   public:
     ElementList (State& s);

@@ -25,6 +25,7 @@ namespace state {
     bool free;
     // Operations
   public:
+    Structure ();
     Structure (StructureTypeID sid);
     bool isFree () const;
     TypeID getTypeID () const;

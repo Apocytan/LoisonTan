@@ -14,10 +14,10 @@ namespace engine{
         
     }
     int ActionList::size () const{
-        
+        return actions.size();
     }
     Action* ActionList::get (int i) const{
-        
+        return actions.at(i);
     }
 
     void ActionList::add (Action* action){

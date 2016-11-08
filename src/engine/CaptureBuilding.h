@@ -3,10 +3,14 @@
 #define ENGINE__CAPTUREBUILDING__H
 
 
+namespace state {
+  class Structure;
+};
 namespace engine {
   class Action;
 }
 
+#include "state/Structure.h"
 #include "Action.h"
 
 namespace engine {
@@ -17,10 +21,10 @@ namespace engine {
   protected:
     int x;
     int y;
-    state::StructureTypeID BuildingType;
+    state::Structure BuildingType;
     // Operations
   public:
-    CaptureBuilding (int x, int y, state::StructureTypeID BuildingType);
+    CaptureBuilding (int x, int y, state::Structure BuildingType);
   };
 
 };

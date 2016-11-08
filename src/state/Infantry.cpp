@@ -8,11 +8,11 @@
 namespace state{
     Infantry::Infantry (){
     }
-    TypeID const Infantry::getTypeID (){
+    TypeID Infantry::getTypeID() const{
         return INFANTRY;
     }
 
-    bool const Infantry::equals (const Element& other){
+    bool  Infantry::equals(const Element& other) const{
         if (typeid(this).name()==typeid(other).name()){
             return true;
         }else{

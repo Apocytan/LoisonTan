@@ -9,7 +9,7 @@ void testSFML() {
 	//sf::Texture texture;
 
 	// on crée la fenêtre
-	bool selected;
+	bool selected=0;
 	int x, y;
         std::string tileLetter;
 	sf::RenderWindow window(sf::VideoMode(600, 256), "Tilemap");

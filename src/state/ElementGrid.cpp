@@ -9,11 +9,12 @@
 namespace state{
     
 
-    /*ElementGrid::ElementGrid (State& s) : s(s) {
-        ElementList elements=ElementList(s);
+    ElementGrid::ElementGrid (State& s) : ElementList(s) {
+        
         this->width=width;
         this->height=height;
-    }*/
+    }
+
     /*bool  const ElementGrid::hasCell (int i, int j) {
         width=this->getWidth();
         height=this->getHeight();

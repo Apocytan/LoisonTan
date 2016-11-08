@@ -3,11 +3,23 @@
 #define ENGINE__RULER__H
 
 
+namespace state {
+  class State;
+};
 namespace engine {
   class CommandSet;
   class ActionList;
+};
+namespace state {
+  class MobileElement;
+  class StaticElement;
+  class Structure;
 }
 
+#include "state/State.h"
+#include "state/Structure.h"
+#include "state/StaticElement.h"
+#include "state/MobileElement.h"
 #include "ActionList.h"
 
 namespace engine {
@@ -23,16 +35,16 @@ namespace engine {
     bool canAct;
     // Operations
   public:
-    Ruler (ActionList& , const state::State& , const CommandSet& ) const;
+    Ruler (ActionList& , const state::State& , const CommandSet& );
     ~Ruler ();
     void apply ();
     void setcanAct (bool can);
     bool getcanAct ();
   protected:
-    void moveChar (state::MobileElement mover, state::StaticElement destination);
-    void attack (state::MobileElement attacker, state::MobileElement defender);
-    void produce (state::State current, state::Structure building, state::MobileElement unitproduce);
-    void capture (state::MobileElement capturer, state::Structure captured);
+    void moveChar (state::MobileElement* mover, state::StaticElement* destination);
+    void attack (state::MobileElement* attacker, state::MobileElement* defender);
+    void produce (state::State current, state::Structure building, state::MobileElement* unitproduce);
+    void capture (state::MobileElement* capturer, state::Structure captured);
   };
 
 };

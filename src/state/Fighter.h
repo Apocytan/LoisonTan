@@ -8,6 +8,7 @@ namespace state {
   class Air;
 }
 
+#include "TypeID.h"
 #include "Air.h"
 
 namespace state {
@@ -17,8 +18,8 @@ namespace state {
     // Operations
   public:
     Fighter ();
-    TypeID const getTypeID ();
-    bool const equals (const Element& other);
+    TypeID  getTypeID () const;
+    bool equals (const Element& other) const;
   };
 
 };

@@ -3,12 +3,16 @@
 #define ENGINE__ENGINE__H
 
 
+namespace state {
+  class State;
+};
 namespace engine {
   class CommandSet;
   class Command;
   class Ruler;
 }
 
+#include "state/State.h"
 #include "EngineMode.h"
 #include "Ruler.h"
 #include "CommandSet.h"

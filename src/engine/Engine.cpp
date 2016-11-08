@@ -11,11 +11,12 @@ namespace engine{
     Engine::~Engine (){
         
     }
+ 
     Engine::Engine (){
         
     }
     EngineMode  Engine::getMode () const{
-        
+        return PLAY; // test
     }
 
     void  Engine::addCommand (Command* cmd){
@@ -31,4 +32,6 @@ namespace engine{
     void  Engine::setMode (EngineMode mode){
         
     }
+    // étrange
+
 }

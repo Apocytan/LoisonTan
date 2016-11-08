@@ -10,12 +10,13 @@ namespace state {
 
   /// class Fighter - 
     Fighter::Fighter (){
+
     }
-    TypeID const Fighter::getTypeID (){
+    TypeID  Fighter::getTypeID () const{
         return FIGHTER;
     }
 
-    bool const Fighter::equals (const Element& other){
+    bool  Fighter::equals (const Element& other) const{
         if (typeid(this).name()==typeid(other).name()){
             return true;
         }else{

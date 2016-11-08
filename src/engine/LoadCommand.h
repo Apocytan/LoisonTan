@@ -24,6 +24,7 @@ namespace engine {
     int getCategory () const;
     CommandTypeID getTypeID () const;
     const char*  getFileName () const;
+    ~LoadCommand ();
   };
 
 };

@@ -4,10 +4,14 @@
 
 #include <vector>
 
+namespace state {
+  class State;
+};
 namespace engine {
   class Action;
 }
 
+#include "state/State.h"
 #include "Action.h"
 
 namespace engine {

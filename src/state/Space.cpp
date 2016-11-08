@@ -32,6 +32,7 @@ namespace state{
             }
     }
     bool isFree (){
+        int free=1;
         if (free==1) return 1;
         else return 0;
     }

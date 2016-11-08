@@ -9,10 +9,10 @@
 #include "ElementGrid.h"
 
 using namespace state;
-    /*State::State(): chars(*this),grid(*this){
+    State::State(): chars(*this),grid(*this){
         this->iron=iron;
         this->units=units;
-    }*/
+    }
     State::~State (){
         if (&iron){
             delete &iron;

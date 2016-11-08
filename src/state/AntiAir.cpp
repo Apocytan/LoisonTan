@@ -10,10 +10,10 @@ namespace state {
     AntiAir::AntiAir (){
     }
     
-    TypeID const AntiAir::getTypeID (){
+    TypeID AntiAir::getTypeID() const{
         return ANTIAIR;
     }
-    bool const AntiAir::equals (const Element& other){
+    bool AntiAir::equals (const Element& other) const{
         if (typeid(this).name()==typeid(other).name()){
             return true;
         }else{

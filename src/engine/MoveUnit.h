@@ -18,13 +18,10 @@ namespace engine {
     int index;
     int destination_x;
     int destination_y;
-    state::Direction prevDirection;
-    state::Direction newDirection;
     // Operations
   public:
     MoveUnit (int index);
-    void setCoords (int destination_x, int destination_y) const;
-    void setDirection (state::Direction prev, state::Direction next) const;
+    void setCoords (int fdestination_x, int fdestination_y) const;
   };
 
 };

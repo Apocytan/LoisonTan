@@ -13,9 +13,9 @@ namespace state{
     /*bool  Wall::isSpace() const{
         //return 0;
     }*/
-    TypeID  Element::getTypeID ()const{
+    /*TypeID  Element::getTypeID ()const{
         return WALL;
-    }
+    }*/
     WallTypeID  Wall::getWallTypeID () const
     {
         return  wallTypeID ;

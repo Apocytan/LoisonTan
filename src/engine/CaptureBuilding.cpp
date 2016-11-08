@@ -7,7 +7,7 @@
 #include "CaptureBuilding.h"
 
 namespace engine {
-    CaptureBuilding::CaptureBuilding (int x, int y, state::StructureTypeID BuildingType){
+    CaptureBuilding::CaptureBuilding (int x, int y, state::Structure BuildingType){
         this-> x = x;
         this->y = y;
         this->BuildingType = BuildingType;

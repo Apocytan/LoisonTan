@@ -46,4 +46,8 @@ namespace state{
     void ElementList::set (int i, Element* e){
         elements.at(i)=e;
     }
+    // étrange erreur générée également
+    Observable::~Observable(){
+        
+    }
 }

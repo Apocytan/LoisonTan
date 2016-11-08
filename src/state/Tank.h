@@ -8,6 +8,7 @@ namespace state {
   class Ground;
 }
 
+#include "TypeID.h"
 #include "Ground.h"
 
 namespace state {
@@ -17,8 +18,8 @@ namespace state {
     // Operations
   public:
     Tank ();
-    TypeID const getTypeID ();
-    bool const equals (const Element& other);
+    TypeID getTypeID () const;
+    bool  equals (const Element& other) const;
   };
 
 };
