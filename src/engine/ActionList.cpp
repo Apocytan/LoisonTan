@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "ActionList.h"
 
 namespace engine{
@@ -11,7 +5,8 @@ namespace engine{
         
     }
     ActionList::~ActionList(){
-        
+        delete &s;
+        delete &notify;
     }
     int ActionList::size () const{
         return actions.size();
@@ -21,9 +16,6 @@ namespace engine{
     }
 
     void ActionList::add (Action* action){
-        
-    }
-    void ActionList::addaply (Action* action){
-        
+        actions.push_back(action);
     }
 }

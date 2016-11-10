@@ -2,6 +2,7 @@
 #ifndef RENDER__SCENE__H
 #define RENDER__SCENE__H
 
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 namespace render {
@@ -9,16 +10,15 @@ namespace render {
   class Surface;
 };
 namespace state {
+  class State;
   class StateObserver;
 };
 namespace render {
   class ElementListLayer;
-  class ElementState;
 }
 
 #include "state/StateObserver.h"
 #include "ElementListLayer.h"
-#include "ElementState.h"
 #include "SceneLayer.h"
 
 namespace render {
@@ -27,6 +27,8 @@ namespace render {
   class Scene : public state::StateObserver {
     // Associations
     // Attributes
+  public:
+    sf::VertexArray m_vertices;
   protected:
     std::vector<Layer*> layers;
     int width;

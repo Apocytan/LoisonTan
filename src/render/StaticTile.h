@@ -23,14 +23,14 @@ namespace render {
   public:
     StaticTile (int x = 0, int y = 0, int w = 16, int h = 16);
     bool isAnimated () const;
-    int getX () const;
+    int getX ( ) const;
     int getY () const;
     int getWidth () const;
     int getHeight () const;
-    int setX () const;
-    int setY () const;
-    int setWidth () const;
-    int setHeight () const;
+    int setX (int x) const;
+    int setY (int y) const;
+    int setWidth (int w) const;
+    int setHeight (int h) const;
   };
 
 };

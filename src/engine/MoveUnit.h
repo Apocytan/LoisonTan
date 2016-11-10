@@ -21,7 +21,7 @@ namespace engine {
     // Operations
   public:
     MoveUnit (int index);
-    void setCoords (int fdestination_x, int fdestination_y) const;
+    void setCoords (int destination_x, int destination_y) const;
   };
 
 };

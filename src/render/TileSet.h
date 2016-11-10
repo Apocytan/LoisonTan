@@ -2,23 +2,42 @@
 #ifndef RENDER__TILESET__H
 #define RENDER__TILESET__H
 
+#include <SFML/Graphics.hpp>
+#include <string>
 
 namespace render {
-  class StaticTile;
   class Tile;
+};
+namespace state {
+  class Element;
+  class Space;
+  class Wall;
+  class MobileElement;
+  class Structure;
 }
+
+#include "state/Space.h"
+#include "state/Wall.h"
+#include "state/MobileElement.h"
+#include "state/Structure.h"
+#include "state/Element.h"
+#include "Tile.h"
 
 namespace render {
 
   /// class TileSet - 
   class TileSet {
+    // Associations
+    // Attributes
+  public:
+    sf::Texture m_tileset;
     // Operations
   public:
-    virtual ~TiletSet ();
+    virtual ~TileSet ();
     int getCellWidth () const;
-    int getCellHeight (const char* image_file) const;
-    const char* getImageFile () const;
-    void getElementTile (int i, const StaticTile* tex);
+    int getCellHeight () const;
+    const std::string& getImageFile () const;
+    const Tile* getElementTile (const state::Element* e) const;
     const Tile* getCharTile (char c) const;
   };
 

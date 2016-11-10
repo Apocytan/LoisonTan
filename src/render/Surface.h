@@ -16,8 +16,8 @@ namespace render {
     virtual ~Surface ();
     void clear ();
     void loadTexture (const char* image_file);
-    void setSpriteLocation (int id, int x, int y);
-    void setSpriteTexture (int i, const StaticTile* tex);
+    void setSpriteLocation (int i, int x, int y);
+    virtual void setSpriteTexture (int i, const StaticTile* tex);
   };
 
 };

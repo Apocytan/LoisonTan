@@ -7,7 +7,13 @@ namespace state {
 
   enum WallTypeID {
     SEA     = 1,
-    WOODS     = 2
+    horizontalWater     = 2,
+    topWater     = 3,
+    leftWater     = 4,
+    verticalWater     = 5,
+    bottomWater     = 6,
+    rightWater     = 7,
+    WOODS     = 8
   };
 
 };

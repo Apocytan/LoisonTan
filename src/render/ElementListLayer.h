@@ -5,20 +5,23 @@
 
 namespace render {
   class Layer;
+};
+namespace state {
+  class State;
 }
 
 #include "Layer.h"
+#include "state/State.h"
 
 namespace render {
 
-  /// class ElementListLayer - Une des couches de la scène
-Avec : les éléments (Mobiles et Statiques => grid et unités)
+  /// class ElementListLayer - 
   class ElementListLayer : public render::Layer {
     // Operations
   public:
-    void stateChanged (const State::StateEvent& e);
+    void stateChanged (const state::StateEvent& e);
   protected:
-    void update ( elementList::, int i);
+    void update (const state::ElementList& elementList, int i);
   };
 
 };

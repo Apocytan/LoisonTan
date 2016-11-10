@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 #include "MobileElement.h" 
 #include "Element.h"
 namespace state{
@@ -23,9 +18,6 @@ namespace state{
         
         
         // Getters
-        Direction MobileElement::getDirection() const{
-            return orientation;
-        }
         int MobileElement::getSpeed() const{
             return speed;
         }
@@ -48,9 +40,6 @@ namespace state{
             return cost;
         }
         // définition des setters
-        void MobileElement::setDirection(Direction d){
-            orientation=d;
-        }
         void MobileElement::setSpeed(int sp){
             speed = sp;
         }
@@ -78,5 +67,8 @@ namespace state{
         // étrange
         TypeID MobileElement::getTypeID() const{
             return INFANTRY;
+        }
+        void MobileElement::setTypeID(TypeID a){
+            type=a;
         }
 };

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 #include "TypeID.h" //interface
 #include "Element.h"
 #include <typeinfo>
@@ -16,14 +11,13 @@ namespace state{
         Element::Element(){
             x=0;
             y=0;
-            orientation=NONE;
         }
         
         Element::~Element (){
-            if(x && y &&orientation)
+            if(x && y )
                 delete &x;
                 delete &y;
-                delete &orientation;
+                
             
         }
         
@@ -33,18 +27,14 @@ namespace state{
         int Element::getY() const{
             return y;
         }
-        Direction  Element::getOrientation() const{
-            return orientation;
-        }
+
         void Element::setX(int x){
              this->x = x ;
         }
         void Element::setY(int y){
             this->y=y;
         }
-        void Element::setOrientation(Direction o){
-            orientation=o;
-        }
+
         bool Element::isStatic () const{
             // if ...
             return 0;

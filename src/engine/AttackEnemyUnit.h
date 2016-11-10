@@ -3,11 +3,15 @@
 #define ENGINE__ATTACKENEMYUNIT__H
 
 
+namespace state {
+  class MobileElement;
+};
 namespace engine {
   class Action;
 }
 
 #include "Action.h"
+#include "state/MobileElement.h"
 
 namespace engine {
 
@@ -15,11 +19,11 @@ namespace engine {
   class AttackEnemyUnit : public engine::Action {
     // Attributes
   protected:
-    int attacker;
-    int defender;
+    state::MobileElement* attacker;
+    state::MobileElement* defender;
     // Operations
   public:
-    AttackEnemyUnit (int attacker, int defender);
+    AttackEnemyUnit (state::MobileElement* attacker, state::MobileElement* defender);
     ~AttackEnemyUnit ();
   };
 

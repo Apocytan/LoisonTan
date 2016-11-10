@@ -16,7 +16,9 @@ namespace engine {
 #include "EngineMode.h"
 #include "Ruler.h"
 #include "CommandSet.h"
-
+#include <SFML/Graphics.hpp>
+#include <SFML/Window/Mouse.hpp>
+#include <tuple>
 namespace engine {
 
   /// class Engine - 
@@ -36,6 +38,10 @@ namespace engine {
     const state::State& getState () const;
     void addCommand (Command* cmd);
     void takeCommands (CommandSet& commands);
+    int TakeEventX(sf::Event event);
+    int TakeEventY(sf::Event event);
+    std::string TakeEventTile(std::vector<std::string> levelwUnit, int x, int y) ;
+    //std::tuple <int,int,std::string> getEvent ( std::vector<std::string> levelwUnit ,  sf::Event event);
   protected:
     void loadLevel (const char* file_name) const;
     void setMode (EngineMode mode);

@@ -21,17 +21,15 @@ namespace state {
     int x;
     /// Coordonnée en ordonnée
     int y;
-    Direction orientation;
+
     // Operations
   public:
     Element ();
     virtual ~Element ();
     int getX () const;
     int getY () const;
-    Direction getOrientation () const;
     void setX (int x);
     void setY (int y);
-    void setOrientation (Direction o);
     virtual bool isStatic () const;
     virtual TypeID getTypeID () const;
     virtual bool equals (const Element& other) const = 0;

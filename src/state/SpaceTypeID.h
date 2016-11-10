@@ -6,8 +6,14 @@
 namespace state {
 
   enum SpaceTypeID {
-    ROAD     = 1,
-    GRASS     = 2
+    verticalROAD     = 1,
+    horizontalROAD     = 2,
+    bottomRightROAD     = 3,
+    bottomLeftROAD     = 4,
+    topLeftROAD     = 5,
+    TopRightROAD     = 6,
+    ROAD     = 7,
+    GRASS     = 8
   };
 
 };

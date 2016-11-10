@@ -1,19 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "AttackEnemyUnit.h"
 
 
 namespace engine {
-    AttackEnemyUnit::AttackEnemyUnit (int attacker, int defender){
+    AttackEnemyUnit::AttackEnemyUnit (state::MobileElement* attacker, state::MobileElement* defender){
         this->attacker=attacker;
         this->defender=defender;
     }
     AttackEnemyUnit::~AttackEnemyUnit (){
-        
+        delete &attacker;
+        delete &defender;
     }
 
 }

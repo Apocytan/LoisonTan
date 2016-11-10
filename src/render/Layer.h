@@ -2,12 +2,10 @@
 #ifndef RENDER__LAYER__H
 #define RENDER__LAYER__H
 
-#include <map>
 
 namespace render {
   class Surface;
   class TileSet;
-  class Animation;
 };
 namespace state {
   class StateObserver;
@@ -16,7 +14,6 @@ namespace state {
 #include "state/StateObserver.h"
 #include "TileSet.h"
 #include "Surface.h"
-#include "Animation.h"
 
 namespace render {
 
@@ -25,18 +22,16 @@ namespace render {
     // Associations
     // Attributes
   private:
-    std::map<int,Animation*> animations;
     Surface* surface;
   protected:
-    const TileSet* tiletset;
+    const TileSet* tileset;
     // Operations
   public:
     Layer ();
     virtual ~Layer ();
     const TileSet* getTileSet () const;
     void setTileSet (const TileSet* tileset);
-    void setAnimation (int i, Animation* a);
-    void printText (int x, int y, shared_ptr<char> txt, int w, int h);
+    void setSurface (Surface* surface);
   };
 
 };

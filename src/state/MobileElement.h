@@ -26,13 +26,12 @@ namespace state {
     int hitpoints;
     int damage;
     int cost;
+    TypeID type;
     // Operations
   public:
     MobileElement ();
-    Direction getDirection () const;
     int getSpeed () const;
     int getPosition () const;
-    void setDirection (Direction d);
     void setSpeed (int sp);
     void setPosition (int pos);
     /// Mobile ou Statique ?
@@ -49,7 +48,8 @@ namespace state {
     int getDamage () const;
     void setCost (int co);
     int getCost () const;
-    virtual TypeID getTypeID () const;
+    virtual TypeID getTypeID () const=0;
+    void setTypeID(state::TypeID a);
   };
 
 };

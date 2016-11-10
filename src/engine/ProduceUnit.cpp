@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 #include "ProduceUnit.h"
-
+#include <iostream>
 namespace engine {
     ProduceUnit::ProduceUnit (int x, int y, state::MobileElement* unit)  {
         // mettre ses coordonnéees à la case voulue
         
         // définir l'unité créée, ruler s'occupera de définir la couleur de l'unité crée
-        
+        std::cout << "Unit Produced " << std::endl;
         if (unit->getTypeID()==2){// FIGHTER
             unit->setSpeed(5);
             unit->setPosition(x+y*33); 
