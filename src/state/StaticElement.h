@@ -7,6 +7,7 @@ namespace state {
   class Element;
 }
 
+#include "TypeID.h"
 #include "Element.h"
 
 namespace state {
@@ -18,6 +19,7 @@ namespace state {
     bool isStatic () const;
     virtual bool isSpace () const;
     virtual bool isFree () const;
+    virtual TypeID getTypeID () const;
   };
 
 };

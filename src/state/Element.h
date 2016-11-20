@@ -7,7 +7,6 @@ namespace state {
   class Element;
 }
 
-#include "Direction.h"
 #include "TypeID.h"
 
 namespace state {
@@ -21,7 +20,6 @@ namespace state {
     int x;
     /// Coordonnée en ordonnée
     int y;
-
     // Operations
   public:
     Element ();

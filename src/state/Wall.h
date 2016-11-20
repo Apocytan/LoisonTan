@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "WallTypeID.h"
+#include "TypeID.h"
 #include "StaticElement.h"
 
 namespace state {
@@ -17,6 +18,9 @@ namespace state {
   class Wall : public state::StaticElement {
     // Associations
     state::WallTypeID wallTypeID;
+    // Attributes
+  protected:
+    bool free;
     // Operations
   public:
     Wall (WallTypeID wid);
@@ -24,6 +28,8 @@ namespace state {
     WallTypeID getWallTypeID () const;
     void setWallTypeID (WallTypeID wid);
     bool equals (const Element& other) const;
+    TypeID getTypeID () const;
+    bool isFree () const;
   };
 
 };

@@ -15,6 +15,9 @@ namespace state{
                 return false;
             }
     }
+    bool Tank::isAir () const{
+        return 0;
+    }
 
 
 }

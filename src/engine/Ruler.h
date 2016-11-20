@@ -7,17 +7,18 @@ namespace state {
   class State;
 };
 namespace engine {
-  class CommandSet;
   class ActionList;
 };
 namespace state {
   class MobileElement;
   class StaticElement;
   class Structure;
+  class Infantry;
 }
 
 #include "state/State.h"
 #include "state/Structure.h"
+#include "state/Infantry.h"
 #include "state/StaticElement.h"
 #include "state/MobileElement.h"
 #include "ActionList.h"
@@ -30,23 +31,20 @@ namespace engine {
     // Attributes
   protected:
     const state::State& currentState;
-    const CommandSet& commands;
     ActionList& actions;
     bool canAct;
     // Operations
   public:
-   
-    Ruler (ActionList& actions, const state::State& cstate , const CommandSet& command);
+    Ruler (ActionList& , const state::State& );
     ~Ruler ();
     void apply ();
     void setcanAct (bool can);
     bool getcanAct ();
+  protected:
     void moveChar (state::MobileElement* mover, state::StaticElement* destination);
     void attack (state::MobileElement* attacker, state::MobileElement* defender);
     void produce (state::State current, state::Structure building, state::MobileElement* unitproduce);
-    void capture (state::MobileElement* capturer, state::Structure captured);
-   /* state::Structure tileIsBuilding(<std::string> tileLetter);
-    state::MobileElement tileIsMobileElement(<std::string> tileLetter);*/
+    void capture (state::Infantry capturer, state::Structure captured);
   };
 
 };

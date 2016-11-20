@@ -40,5 +40,7 @@ namespace state{
             return 0;
             //if return 1
         }
-           
+        TypeID Element::getTypeID () const{
+            return WALL;
+        }   
 }

@@ -17,5 +17,8 @@ namespace state {
                 return false;
             }
     }
+    bool Fighter::isAir () const{
+        return 1;
+    }
 
 }

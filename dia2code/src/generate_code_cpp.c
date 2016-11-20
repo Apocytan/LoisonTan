@@ -716,6 +716,7 @@ gen_namespace(batch *b, declaration *nsd) {
         tmpname = strtoupper(name);
         print("#ifndef %s__%s__H\n", tmpnsname, tmpname);
         print("#define %s__%s__H\n\n", tmpnsname, tmpname);
+	print("#include <iostream>");
 
         // Find STL classes
         if (d->decl_kind != dk_module) {
@@ -790,6 +791,7 @@ gen_namespace(batch *b, declaration *nsd) {
                     if (!strcmp(incfile->package, nsname)) {
                         if (strcmp(incfile->name, name)) {
                             print("#include \"%s.%s\"\n", incfile->name, file_ext);
+				
                         }
                     } else {
                         print("#include \"%s/%s.%s\"\n", incfile->package, incfile->name, file_ext);

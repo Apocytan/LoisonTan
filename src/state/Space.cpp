@@ -2,33 +2,31 @@
 #include <typeinfo>
 namespace state{
     Space::Space (SpaceTypeID sid){
-        this->x=x;
-        this->y=y;
+        this->spaceTypeID=sid;
+        this->free=1;
     
     } 
-    bool const Space::isSpace (){
+    bool  Space::isSpace() const{
         return true;
     }
-    TypeID const Space::getTypeID (){
+    TypeID Space::getTypeID() const{
         return SPACE;
     }
-    SpaceTypeID const Space::getSpaceTypeID (){
+    SpaceTypeID Space::getSpaceTypeID () const{
         return spaceTypeID;
     }
     void Space::setSpaceTypeID (SpaceTypeID sid, bool free){
         this->spaceTypeID=sid;
         this->free=free;
     }
-    bool const Space::equals (const Element& other){
+    bool Space::equals (const Element& other) const{
         if (typeid(this).name()==typeid(other).name()){
             return true;
         }else{
                 return false;
             }
     }
-    bool isFree (){
-        int free=1;
-        if (free==1) return 1;
-        else return 0;
+    bool Space::isFree (){
+        return free;
     }
 }

@@ -20,6 +20,7 @@ namespace state {
     Fighter ();
     TypeID  getTypeID () const;
     bool equals (const Element& other) const;
+    bool isAir () const;
   };
 
 };

@@ -1,16 +1,14 @@
 #include "Wall.h"
 #include <typeinfo>
 namespace state{
-    /*Wall::Wall (WallTypeID wid){
-        this->x=x;
-        this->y=y;
-    }*/
-    /*bool  Wall::isSpace() const{
-        //return 0;
-    }*/
-    /*TypeID  Element::getTypeID ()const{
-        return WALL;
-    }*/
+    Wall::Wall (WallTypeID wid){
+        this->wallTypeID=wid;
+        this->free=1;
+    }
+    bool  Wall::isSpace() const{
+        return false;
+    }
+
     WallTypeID  Wall::getWallTypeID () const
     {
         return  wallTypeID ;
@@ -25,6 +23,13 @@ namespace state{
                 return false;
             }
 
+    }
+    TypeID Wall::getTypeID () const{
+        return state::TypeID::WALL;
+    }
+    
+    bool Wall::isFree () const{
+        return free;
     }
     
 }

@@ -12,7 +12,7 @@ namespace state {
     bool StaticElement::isFree () const{
         return 0; //modif plus tard
     }
-    TypeID Element::getTypeID() const{
+    TypeID StaticElement::getTypeID() const{
         return WALL; //test
     }
 

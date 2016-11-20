@@ -22,7 +22,7 @@ ENDIF(CMAKE_COMPILER_IS_GNUCC)
 set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns state ../src/state.dia)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns engine ../src/engine.dia)
-exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns render ../src/render.dia)
+#exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns render ../src/render.dia)
 
 # Sources
 file(GLOB_RECURSE main_sources src/*.cpp)

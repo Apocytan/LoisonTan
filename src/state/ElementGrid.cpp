@@ -28,8 +28,7 @@ namespace state{
     Element*  ElementGrid::getCell (int i, int j) const{
         return elements.at(i+j*width);
     }
-    bool  ElementGrid::isSpace(int i, int j, Direction d ) const{
-        d = NONE;
+    bool  ElementGrid::isSpace(int i, int j ) const{
         Element* elm=elements.at(i+j*width);
         if (i>=height|| j>=width){
             return 0;//throw runtime_error("la cellule demandee n existe pas");

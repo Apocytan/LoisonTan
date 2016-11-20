@@ -3,12 +3,10 @@
 namespace state{
     Infantry::Infantry (){
     }
-    TypeID Infantry::getTypeID(){
+    TypeID Infantry::getTypeID() const{
         return INFANTRY;
     }
-    void Infantry::setTypeID(TypeID soldier){
-        test=soldier;
-    }
+
 
     bool  Infantry::equals(const Element& other) const{
         if (typeid(this).name()==typeid(other).name()){
@@ -17,4 +15,7 @@ namespace state{
                 return false;
             }
     }
+     bool Infantry::isAir () const{
+         return 0;
+     }
 }

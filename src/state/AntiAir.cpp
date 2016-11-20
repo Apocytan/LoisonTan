@@ -15,5 +15,8 @@ namespace state {
                 return false;
             }
     }
+    bool AntiAir::isAir () const{
+         return 0;
+     }
 }
 

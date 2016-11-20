@@ -7,7 +7,6 @@ namespace state {
   class Element;
 }
 
-#include "Direction.h"
 #include "TypeID.h"
 #include "Element.h"
 
@@ -15,8 +14,6 @@ namespace state {
 
   /// class MobileElement - 
   class MobileElement : public state::Element {
-    // Associations
-    state::Direction direction;
     // Attributes
   protected:
     int speed;
@@ -48,8 +45,8 @@ namespace state {
     int getDamage () const;
     void setCost (int co);
     int getCost () const;
-    virtual TypeID getTypeID () const=0;
-    void setTypeID(state::TypeID a);
+    virtual TypeID getTypeID () const;
+    void setTypeID (TypeID a);
   };
 
 };

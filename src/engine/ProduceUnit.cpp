@@ -12,6 +12,7 @@ namespace engine {
             unit->setRank(0);
             unit->setHp(10);
             unit->setDamage(4);
+          
         }
         if (unit->getTypeID() ==3){ //INFANTRY
             unit->setSpeed(3);
@@ -19,6 +20,9 @@ namespace engine {
             unit->setRank(0);
             unit->setHp(10);
             unit->setDamage(3);
+            std::cout << "Infantry" << std::endl;
+            free (unit);
+            delete unit;
         }
         if (unit->getTypeID() == 4){ //TANK
             unit->setSpeed(4);
@@ -35,5 +39,7 @@ namespace engine {
             unit->setDamage(4);
         }
     }
+    
+
     
 }

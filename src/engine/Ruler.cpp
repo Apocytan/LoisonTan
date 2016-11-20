@@ -1,17 +1,15 @@
 #include "Ruler.h"
-#include "MoveUnit.h"
 #include <iostream>
 #include <stack>
 #include "../state.h"
 //CONSIDERONS QUE canAct passe à 0 après toutes les actions effectuées
 namespace engine{
  
-    Ruler::Ruler (ActionList& actions, const state::State& cstate , const CommandSet& command ): currentState(cstate), commands(command),actions(actions) { 
+    Ruler::Ruler (ActionList& actions, const state::State& cstate ): currentState(cstate),actions(actions) { 
         /*this->actions = actions;
         this->currentState=cstate;
         this->commands=command;*/
     }
-    
     Ruler::~Ruler() {   
     }
     void Ruler::apply() {
@@ -90,17 +88,17 @@ namespace engine{
 
     }
     
-    void Ruler::capture(state::MobileElement* capturer, state::Structure captured) {
+    void Ruler::capture(state::Infantry capturer, state::Structure captured) {
         // lorsque couleur différente
         if(canAct){
-            if (capturer->getColor() != captured.getColor()){
+            if (capturer.getColor() != captured.getColor()){
                 // si batiment non capturé
                 if(captured.getCapturepoints() !=0){
-                    captured.setCapturepoints(captured.getCapturepoints()-capturer->getHp()); 
+                    captured.setCapturepoints(captured.getCapturepoints()-capturer.getHp()); 
                 }
             //si batiment capturé
                 else{
-                    captured.setColor(capturer->getColor()); // on change sa couleur
+                    captured.setColor(capturer.getColor()); // on change sa couleur
                     captured.setCapturepoints(20); // on remet ses points à 20
                 }
             

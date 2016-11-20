@@ -5,16 +5,14 @@ namespace state{
     Structure::Structure (){
         
     }
-    Structure::Structure (StructureTypeID sid){  
+    Structure::Structure (StructureTypeID sid,bool free, int color){
+        this->structureTypeID=sid;
+        this->free=free;
+        this->color=color;
     }
     
     bool Structure::isFree () const{
-        if (free==1){
-            return 1;
-        }
-        else{
-            return 0;
-        }
+        return free;
         
     }
     

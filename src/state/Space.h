@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "SpaceTypeID.h"
+#include "TypeID.h"
 #include "StaticElement.h"
 
 namespace state {
@@ -23,11 +24,11 @@ namespace state {
     // Operations
   public:
     Space (SpaceTypeID sid);
-    bool const isSpace ();
-    TypeID const getTypeID ();
-    SpaceTypeID const getSpaceTypeID ();
+    bool isSpace () const;
+    TypeID getTypeID () const;
+    SpaceTypeID getSpaceTypeID () const;
     void setSpaceTypeID (SpaceTypeID sid, bool free);
-    bool const equals (const Element& other);
+    bool equals (const Element& other) const;
     bool isFree ();
   };
 

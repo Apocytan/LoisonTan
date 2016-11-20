@@ -2,7 +2,6 @@
 #ifndef __STATE__H
 #define __STATE__H
 
-#include "state/Direction.h"
 #include "state/TypeID.h"
 #include "state/Element.h"
 #include "state/MobileElement.h"

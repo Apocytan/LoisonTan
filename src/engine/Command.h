@@ -14,8 +14,7 @@ namespace engine {
     // Operations
   public:
     virtual ~Command ();
-    virtual int getCategory () const;
-    virtual CommandTypeID getTypeID () const;
+    virtual void execute () const;
   };
 
 };

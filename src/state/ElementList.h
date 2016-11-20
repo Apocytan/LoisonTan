@@ -12,11 +12,13 @@ namespace state {
 }
 
 #include "Observable.h"
+#include "Element.h"
 
 namespace state {
 
   /// class ElementList - 
   class ElementList : public state::Observable {
+    // Associations
     // Attributes
   public:
     State& s;

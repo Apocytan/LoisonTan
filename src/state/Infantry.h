@@ -16,13 +16,11 @@ namespace state {
   /// class Infantry - 
   class Infantry : public state::Ground {
     // Operations
-  protected:
-      TypeID test;
   public:
     Infantry ();
-    TypeID getTypeID ();
+    TypeID getTypeID () const;
     bool  equals (const Element& other) const;
-    void setTypeID(TypeID soldier);
+    bool isAir () const;
   };
 
 };

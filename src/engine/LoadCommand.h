@@ -4,17 +4,12 @@
 
 #include <string>
 
-namespace engine {
-  class Command;
-}
-
 #include "CommandTypeID.h"
-#include "Command.h"
 
 namespace engine {
 
   /// class LoadCommand - 
-  class LoadCommand : public engine::Command {
+  class LoadCommand {
     // Attributes
   protected:
     std::string file_name;

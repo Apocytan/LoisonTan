@@ -2,23 +2,29 @@
 #ifndef ENGINE__ENGINE__H
 #define ENGINE__ENGINE__H
 
+#include <vector>
 
 namespace state {
   class State;
 };
 namespace engine {
-  class CommandSet;
   class Command;
+};
+namespace state {
+  class Infantry;
+  class Fighter;
+  class Structure;
+};
+namespace engine {
   class Ruler;
 }
 
 #include "state/State.h"
 #include "EngineMode.h"
+#include "state/Fighter.h"
+#include "state/Infantry.h"
 #include "Ruler.h"
-#include "CommandSet.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <tuple>
+
 namespace engine {
 
   /// class Engine - 
@@ -28,8 +34,7 @@ namespace engine {
     // Attributes
   protected:
     state::State currentState;
-    CommandSet* currentCommands;
-    CommandSet* waitingCommands;
+    std::vector<Command*> commands;
     // Operations
   public:
     ~Engine ();
@@ -37,11 +42,12 @@ namespace engine {
     EngineMode getMode () const;
     const state::State& getState () const;
     void addCommand (Command* cmd);
-    void takeCommands (CommandSet& commands);
-    int TakeEventX(sf::Event event);
-    int TakeEventY(sf::Event event);
-    std::string TakeEventTile(std::vector<std::string> levelwUnit, int x, int y) ;
-    //std::tuple <int,int,std::string> getEvent ( std::vector<std::string> levelwUnit ,  sf::Event event);
+    void ProduceInfantry (int x, int y, state::Infantry* unit, state::ElementList * ListOfElements);
+    void ProduceFighter (int x, int y, state::Fighter* unit, state::ElementList * ListOfElements);
+    void AttackEnemy (state::Element* attacker, state::Element* defender);
+    void CaptureEnemy (state::Infantry* capturer, state::Structure* captured);
+    void MoveUnit (state::Element* mover, state::Element* destination, state::ElementList StaticMapElements);
+    bool update (int time);
   protected:
     void loadLevel (const char* file_name) const;
     void setMode (EngineMode mode);

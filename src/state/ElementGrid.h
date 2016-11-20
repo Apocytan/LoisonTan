@@ -9,7 +9,6 @@ namespace state {
   class ElementList;
 }
 
-#include "Direction.h"
 #include "ElementList.h"
 
 namespace state {
@@ -27,7 +26,7 @@ namespace state {
     int getWidth () const;
     int getHeight () const;
     Element* getCell (int i, int j) const;
-    bool isSpace (int i, int j, Direction d = NONE) const;
+    bool isSpace (int i, int j) const;
     void setCell (int i, int j, Element* e);
     void load (const char* file_name);
   };

@@ -8,43 +8,38 @@
 #include "engine/ProduceUnit.h"
 #include "../src/state.h"
 #include "../src/state/TypeID.h"
-
+#include "engine/BuildCommand.h"
+#include "state/ElementList.h"
+#include "state/Space.h"
+#include "state/Wall.h"
 void testSFML() {
-                // Variable de récupération des données d'une tuile
-        int tileX=0;
-        int tileY=0;
+        engine::Engine moteur;
         engine::Engine tile;
         
                 // Ressources de départ
+
         state::State firstturn;
         firstturn.setIron(10000);
-        
-        //erreur ici //state::MobileElement *unitkind = new state::MobileElement;
-        state::MobileElement *unitkind(0);
-        state::Structure buildingkind;
-        
+        state::ElementList* ListOfElements;
+        ListOfElements = new state::ElementList(firstturn);
+                // déclarations et instanciation des variables("unités") de production et d'attaque
+        state::Infantry *soldat=new state::Infantry;
+        state::Fighter *avion = new state::Fighter;
+        state::Structure *toCapture=new state::Structure;
+        state::Infantry *capturer=new state::Infantry;
+        /*state::Fighter *avion=new state::Fighter;
+        state::Tank *charassaut=new state::Tank;
+        state::AntiAir *aa=new state::AntiAir;
+        state::Structure *batiment= new state::Structure;*/
 
 
-        // liste des actions
-        //création d'une règle
-        //engine::Ruler rule;
-        engine::Action *produire;
 	// on crée la fenêtre
-        // test d'une production
-        //state::Infantry soldat= new state::Infantry();
-        state::TypeID soldier = state::TypeID::INFANTRY;
-        
-        
-        //soldat =new state::Infantry;
-       
-        //unitkind->setTypeID(soldier);
-
-        std::cout << unitkind << std::endl;
-        
-	bool selected=0;
-        std::string tileLetter;
+	std::string action="rien";
+        std::string tileLetter,tileLetter2;
+        std::string answer="no";
 	sf::RenderWindow window(sf::VideoMode(600, 256), "Tilemap");
-        int x,y;
+        int x,y,x2,y2;
+        int choix=0;
 	// on définit le niveau à l'aide de numéro de tuiles
 	std::vector<std::string> level =
 	{
@@ -66,77 +61,279 @@ void testSFML() {
 		"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","bF","G","G","G","bF",
 	};
 
+        //Création du deuxième tableau d'éléments
+        state::Element* elemtemp;
+        state::Structure* batiment=static_cast<state::Structure*>(elemtemp);
+        state::Space* espace=static_cast<state::Space*>(elemtemp);
+        state::Wall* mur = static_cast<state::Wall*>(elemtemp);
+        for(unsigned int i=0;i<level.size();i++){
+            
+            if(level[i]=="rF" || level[i]=="rA" || level[i]=="rHQ" || level[i]=="rM" || level[i]=="rB"){//structures rouges
+
+                //batiment= new state::Structure;
+                //batiment->setColor(2);
+                if(level[i]=="rF"){
+                    //batiment->setStructureTypeID(state::FACTORY,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::FACTORY, 1, 2));
+                }
+                if(level[i]=="rA"){
+                    //batiment->setStructureTypeID(state::AIRPORT,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::AIRPORT, 1, 2));
+                }
+                if(level[i]=="rHQ"){
+                    //batiment->setStructureTypeID(state::HEADQUARTER,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::HEADQUARTER, 1, 2));
+                }
+                if(level[i]=="rM"){
+                    //batiment->setStructureTypeID(state::MINE,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::MINE, 1, 2));
+                }
+                if(level[i]=="rB"){
+                    //batiment->setStructureTypeID(state::BUILDING,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::BUILDING, 1, 2));
+                }
+            }
+            if(level[i]=="bF" || level[i]=="bA" || level[i]=="bHQ" || level[i]=="bM" || level[i]=="bB"){//structures bleues
+
+                //batiment= new state::Structure;
+                //batiment->setColor(1);
+                if(level[i]=="bF"){
+                    //batiment->setStructureTypeID(state::FACTORY,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::FACTORY, 1, 1));
+                }
+                if(level[i]=="bA"){
+                    //batiment->setStructureTypeID(state::AIRPORT,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::AIRPORT, 1, 1));
+                }
+                if(level[i]=="bHQ"){
+                    //batiment->setStructureTypeID(state::HEADQUARTER,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::HEADQUARTER, 1, 1));
+                }
+                if(level[i]=="bM"){
+                    //batiment->setStructureTypeID(state::MINE,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::MINE, 1, 1));
+                }
+                if(level[i]=="bB"){
+                    //batiment->setStructureTypeID(state::BUILDING,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::BUILDING, 1, 1));
+                }
+            }
+            if(level[i]=="nF" || level[i]=="nA"  || level[i]=="nM" || level[i]=="nB"){//structures neutres
+
+                //batiment= new state::Structure;
+                //batiment->setColor(0);
+                if(level[i]=="nF"){
+                    //batiment->setStructureTypeID(state::FACTORY,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::FACTORY, 1, 0));
+                }
+                if(level[i]=="nA"){
+                    //batiment->setStructureTypeID(state::AIRPORT,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::AIRPORT, 1, 0));
+                }
+                if(level[i]=="nM"){
+                    //batiment->setStructureTypeID(state::MINE,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::MINE, 1, 0));
+                }
+                if(level[i]=="nB"){
+                    //batiment->setStructureTypeID(state::BUILDING,1);
+                    ListOfElements->elements.push_back(new state::Structure(state::BUILDING, 1, 0));
+                }
+            }
+            if(level[i]=="vR" || level[i]=="hR" || level[i]=="brR" || level[i]=="blR" || level[i]=="tlR" || level[i]=="trR" || level[i]=="R" || level[i]=="G"){//spaces
+                
+                if(level[i]=="vR"){
+                //    espace= new state::Space(state::verticalROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::verticalROAD));
+                }
+                if(level[i]=="hR"){
+                //    espace= new state::Space(state::horizontalROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::horizontalROAD));
+                }
+                if(level[i]=="brR"){
+                //    espace= new state::Space(state::bottomRightROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::bottomRightROAD));
+                }
+                if(level[i]=="blR"){
+                //    espace= new state::Space(state::bottomLeftROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::bottomLeftROAD));
+                }
+                if(level[i]=="tlR"){
+                //    espace= new state::Space(state::topLeftROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::topLeftROAD));
+                }
+                if(level[i]=="trR"){
+                //    espace= new state::Space(state::TopRightROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::TopRightROAD));
+                }
+                if(level[i]=="R"){
+                //    espace= new state::Space(state::ROAD);
+                    ListOfElements->elements.push_back(new state::Space(state::ROAD));
+                }
+                if(level[i]=="G"){
+                    ListOfElements->elements.push_back(new state::Space(state::GRASS));
+                }
+            }
+            if(level[i]=="S" || level[i]=="hW" || level[i]=="tW" || level[i]=="lW" || level[i]=="vW" || level[i]=="bW" || level[i]=="rW" || level[i]=="W"){//walls
+
+               
+                if(level[i]=="S"){
+                    //mur= new state::Wall(state::SEA);
+                    ListOfElements->elements.push_back(new state::Wall(state::SEA));
+                }
+                if(level[i]=="hW"){
+                    //mur= new state::Wall(state::horizontalWater);
+                    ListOfElements->elements.push_back(new state::Wall(state::horizontalWater));
+                }
+                if(level[i]=="tW"){
+                    //mur= new state::Wall(state::topWater);
+                    ListOfElements->elements.push_back(new state::Wall(state::topWater));
+                }
+                if(level[i]=="lW"){
+                    //mur= new state::Wall(state::leftWater);
+                    ListOfElements->elements.push_back(new state::Wall(state::leftWater));
+                }
+                if(level[i]=="vW"){
+                    //mur= new state::Wall(state::verticalWater);
+                    ListOfElements->elements.push_back(new state::Wall(state::verticalWater));
+                }
+                if(level[i]=="bW"){
+                    //mur= new state::Wall(state::bottomWater);
+                    ListOfElements->elements.push_back(new state::Wall(state::bottomWater));
+                }
+                if(level[i]=="rW"){
+                    //mur= new state::Wall(state::rightWater);
+                    ListOfElements->elements.push_back(new state::Wall(state::rightWater));
+                }
+                if(level[i]=="W"){
+                    //mur= new state::Wall(state::WOODS);
+                    ListOfElements->elements.push_back(new state::Wall(state::WOODS));
+                }
+            }
+            }
+
 	// on crée la tilemap avec le niveau précédemment défini
 	TileMap map;
         std::vector<std::string> levelwUnit=level;
-        levelwUnit[0]="rfighter";
-	if (!map.load("res/Textures.png", sf::Vector2u(16, 16), levelwUnit, 33, 16))
+        levelwUnit[5]="rinfantry";
+	if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfElements, 33, 16))
 		std::cout << "an error occured" << std::endl;
         sf::Event event;
-	// on fait tourner la boucle principale
+        
+            // [Boucle principale pour l'affichage]
 	while (window.isOpen())
 	{
-		// on gère les évènements
-		
+		// [Gestion des événements]
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed){
 				window.close();}
-
+/*
 			if (event.type == sf::Event::MouseButtonPressed) {
                             if(event.type==sf::Event::MouseButtonPressed){    
                                 if (event.mouseButton.button == sf::Mouse::Left) {
-                                            //Récupération des données de la tuile
-					tileX=tile.TakeEventX(event);
-                                        tileY=tile.TakeEventY(event); 
-                                        tileLetter=tile.TakeEventTile(levelwUnit,tileX,tileY);
-                                        std::cout << "Got your tile : " << tileX << "," <<tileY<< "," << tileLetter << std::endl;
-                                        
-                                        if (tileLetter == "rA" ){
-                                            std::cout << "You have selectionned a building : Aiport, click another time to build" << std::endl;
-                                            //rule.produce(firstturn,buildingkind,unitkind);
-                                            //state::MobileElement *unitkind = dynamic_cast<state::Infantry*> (soldat); 
-                                            //unitkind->setTypeID(soldat->getTypeID());
-                                            
-                                            //engine::ProduceUnit(tileX,tileY,unitkind);
-                                            tileLetter = "rF";
-                                        }
-                                        if (tileLetter == "bA" ){
-                                            std::cout << "You have selectionned a building : Aiport " << std::endl;
+                                            // [Récupération de la tuile initiale]
+                                    x = event.mouseButton.x;
+                                    y= event.mouseButton.y;
+                                    x=x/16;
+                                    y=y/16;
+                                    tileLetter=levelwUnit[x+y*33];
+                                    std::cout << "Got your tile : " << x << "," <<y<< "," << tileLetter << std::endl;
 
+                                             // [Choix Action]
+                                        if (tileLetter=="rfighter" || tileLetter == "rtank" || tileLetter == "rantiair" || tileLetter == "bfighter" || tileLetter =="btank" || tileLetter == "bantiair"){
+                                            std::cout << "Que souhaitez vous faire, 0 pour ne rien faire, 1 pour bouger, 2 pour aller attaquer" << std::endl;
+                                            std::cin >> choix;
+                                            if (choix==0) action ="rien";
+                                            if (choix==1) action ="bouger";
+                                            if (choix==2) action ="attaquer";
+                                            std::cout << "Vous souhaitez " << action << std::endl;
                                         }
-                                        if (tileLetter == "rF" || tileLetter=="bF"){
-                                            std::cout << "You have selectionned a building : Factory " << std::endl;
+                                        if(tileLetter == "rinfantry" || tileLetter == "binfantry"){
+                                            std::cout << "Que souhaitez vous faire, 0 pour ne rien faire, 1 pour bouger, 2 pour aller attaquer, 3 pour aller capturer" << std::endl;
+                                            std::cin >> choix;
+                                            if (choix==0) action ="rien";
+                                            if (choix==1) action ="bouger";
+                                            if (choix==2) action ="attaquer";
+                                            if (choix==3) { 
+                                                action ="capturer";
+                                                capturer->setX(x);
+                                                capturer->setY(y);
+                                            }
+                                            std::cout << "Vous souhaitez " << action << std::endl;
                                         }
-					if (tileLetter == "rfighter" || tileLetter == "rinfantry" || tileLetter == "rtank" || tileLetter == "rantiair") {
-						selected = 1;
-                                                //je passe selected à 1 avec l'élément sauvegardé
-					}
-					else {
-						std::cout << "The selected unit is not mobile, please select another" << std::endl;
-					}
+                                    
+                                                // [Production d'infantry]
+                                        if (tileLetter=="rF" || tileLetter == "bF"){
+                                           if (event.mouseButton.button == sf::Mouse::Left){
+                                               //std::cout << "Build Infantry 'yes' or 'no' ?" <<std::endl;
+                                               //std::cin >> answer;
+                                               //if (answer=="yes") {
+                                                   moteur.ProduceInfantry(x,y,soldat,ListOfElements); 
+                                                //   answer = "no";
+                                                //}
+                                              
+                                            }
+                                        }       // [Production d'avion]
+                                            if (tileLetter=="rA" || tileLetter == "bA"){
+                                                if (event.mouseButton.button == sf::Mouse::Left){
+                                               //std::cout << "Build fighter 'yes' or 'no' ?" <<std::endl;
+                                               //std::cin >> answer;
+                                               //if (answer=="yes") {
+                                                   moteur.ProduceFighter(x,y,avion,ListOfElements); 
+
+                                                //   answer = "no";
+                                                //}
+                                              
+                                            }
+                                        }
 				}
                             }
+                            
 				if (event.mouseButton.button == sf::Mouse::Right) {
-					if (selected == 1) {
-                                                //je déplace mon élément
-						x = event.mouseButton.x;
-						y = event.mouseButton.y;
-						x = x / 16;
-						y = y / 16;
+					if (action == "bouger") {
+						x2 = event.mouseButton.x;
+						y2 = event.mouseButton.y;
+						x2 = x2 / 16;
+						y2 = y2 / 16;
                                                 levelwUnit=level;
-                                                levelwUnit[x+y*33]=tileLetter;
-						if (!map.load("res/Textures.png", sf::Vector2u(16, 16), levelwUnit, 33, 16)) {
+                                                levelwUnit[x2+y2*33]=tileLetter;
+                                                //moteur.MoveUnit(elem,x2,y2);
+						if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfElements, 33, 16)) {
 							std::cout << "an error occured" << std::endl;
 						}
 						
-						selected = 0;
+						action = "rien";
 					}
-					else {
-						std::cout << "no mobile unit is currently selected" << std::endl;
+                                        if (action == "capturer") {
+                                            printf("Selectionnez la cible à capturer ! \n");
+                                            x2 = event.mouseButton.x;
+                                            y2 = event.mouseButton.y;
+                                            x2 = x2 / 16;
+                                            y2 = y2 / 16;
+                                            tileLetter2=levelwUnit[x2+(y2)*33];
+                                            std::cout << "Vous voulez capturer: " << x2 << "," <<y2<< "," << tileLetter2 << std::endl;
+                                            toCapture->setX(x2);
+                                            toCapture->setY(y2);
+
+                                            moteur.CaptureEnemy(capturer,toCapture);
+                                            // [ l'unité se déplace aussi à la case sélectionnée]
+                                            action = "rien";
 					}
+                                        if (action == "attaquer") {
+                                            printf("Selectionnez la cible à attaquer ! \n");
+                                            x2 = event.mouseButton.x;
+                                            y2 = event.mouseButton.y;
+                                            x2 = x2 / 16;
+                                            y2 = y2 / 16;
+                                            levelwUnit=level;
+                                            std::cout << "Votre unité en " << x << " "<< y << " souhaite attaquer celle en " << x2 << " " << y2 << std::endl;
+                                            moteur.AttackEnemy(ListOfElements->elements.at(x+y*33),ListOfElements->elements.at(x2+y2*33));
+                                            
+					action = "rien";
+					}
+                                        
 				}
-                        }
+                        }*/
 			/*}*/
 
 
