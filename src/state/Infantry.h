@@ -2,6 +2,7 @@
 #ifndef STATE__INFANTRY__H
 #define STATE__INFANTRY__H
 
+#include <iostream>
 
 namespace state {
   class Element;

@@ -2,6 +2,7 @@
 #ifndef STATE__TANK__H
 #define STATE__TANK__H
 
+#include <iostream>
 
 namespace state {
   class Element;

@@ -2,6 +2,7 @@
 #ifndef STATE__AIR__H
 #define STATE__AIR__H
 
+#include <iostream>
 
 namespace state {
   class MobileElement;

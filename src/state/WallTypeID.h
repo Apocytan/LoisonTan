@@ -2,6 +2,7 @@
 #ifndef STATE__WALLTYPEID__H
 #define STATE__WALLTYPEID__H
 
+#include <iostream>
 
 namespace state {
 

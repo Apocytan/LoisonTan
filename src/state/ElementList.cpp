@@ -9,9 +9,7 @@ namespace state{
         this->elements=elements;
     }
     ElementList::~ElementList (){
-        if(&elements){
-            delete &elements;
-        }
+
     }
     bool ElementList::equals (const ElementList& other) const{
         if (typeid(this).name()==typeid(other).name()){

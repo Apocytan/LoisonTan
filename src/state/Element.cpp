@@ -14,11 +14,7 @@ namespace state{
         }
         
         Element::~Element (){
-            if(x && y )
-                delete &x;
-                delete &y;
-                
-            
+ 
         }
         
         int Element::getX () const{

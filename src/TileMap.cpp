@@ -26,7 +26,7 @@ public:
 
         // on remplit le tableau de vertex, avec un quad par tuile
         state::Element* e;
-        int TileNumber;
+        int TileNumber=0;
         /*std::unordered_map<std::string,int> list={//W:woods, machinW: machinWater, brR: bottomRightRoad
                 {"rfighter",0},{"rinfantry",1},{"rtank",2},{"rantiair",3},
                 {"bfighter",5},{"binfantry",6},{"btank",7},{"bantiair",8},

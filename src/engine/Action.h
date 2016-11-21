@@ -2,6 +2,7 @@
 #ifndef ENGINE__ACTION__H
 #define ENGINE__ACTION__H
 
+#include <iostream>
 
 namespace engine {
 

@@ -2,6 +2,7 @@
 #ifndef ENGINE__RULER__H
 #define ENGINE__RULER__H
 
+#include <iostream>
 
 namespace state {
   class State;

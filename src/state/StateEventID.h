@@ -2,6 +2,7 @@
 #ifndef STATE__STATEEVENTID__H
 #define STATE__STATEEVENTID__H
 
+#include <iostream>
 
 namespace state {
 

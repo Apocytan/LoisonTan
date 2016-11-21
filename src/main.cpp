@@ -38,7 +38,10 @@ void testSFML() {
         std::string tileLetter,tileLetter2;
         std::string answer="no";
 	sf::RenderWindow window(sf::VideoMode(600, 256), "Tilemap");
-        int x,y,x2,y2;
+        int x=0;
+        int y=0;
+        int x2=0;
+        int y2=0;
         int choix=0;
 	// on définit le niveau à l'aide de numéro de tuiles
 	std::vector<std::string> level =
@@ -62,10 +65,10 @@ void testSFML() {
 	};
 
         //Création du deuxième tableau d'éléments
-        state::Element* elemtemp;
-        state::Structure* batiment=static_cast<state::Structure*>(elemtemp);
-        state::Space* espace=static_cast<state::Space*>(elemtemp);
-        state::Wall* mur = static_cast<state::Wall*>(elemtemp);
+        //state::Element* elemtemp;
+        //state::Structure* batiment=static_cast<state::Structure*>(elemtemp);
+        //state::Space* espace=static_cast<state::Space*>(elemtemp);
+        //state::Wall* mur = static_cast<state::Wall*>(elemtemp);
         for(unsigned int i=0;i<level.size();i++){
             
             if(level[i]=="rF" || level[i]=="rA" || level[i]=="rHQ" || level[i]=="rM" || level[i]=="rB"){//structures rouges
@@ -227,7 +230,7 @@ void testSFML() {
 		{
 			if (event.type == sf::Event::Closed){
 				window.close();}
-/*
+
 			if (event.type == sf::Event::MouseButtonPressed) {
                             if(event.type==sf::Event::MouseButtonPressed){    
                                 if (event.mouseButton.button == sf::Mouse::Left) {
@@ -238,7 +241,6 @@ void testSFML() {
                                     y=y/16;
                                     tileLetter=levelwUnit[x+y*33];
                                     std::cout << "Got your tile : " << x << "," <<y<< "," << tileLetter << std::endl;
-
                                              // [Choix Action]
                                         if (tileLetter=="rfighter" || tileLetter == "rtank" || tileLetter == "rantiair" || tileLetter == "bfighter" || tileLetter =="btank" || tileLetter == "bantiair"){
                                             std::cout << "Que souhaitez vous faire, 0 pour ne rien faire, 1 pour bouger, 2 pour aller attaquer" << std::endl;
@@ -261,7 +263,6 @@ void testSFML() {
                                             }
                                             std::cout << "Vous souhaitez " << action << std::endl;
                                         }
-                                    
                                                 // [Production d'infantry]
                                         if (tileLetter=="rF" || tileLetter == "bF"){
                                            if (event.mouseButton.button == sf::Mouse::Left){
@@ -271,7 +272,6 @@ void testSFML() {
                                                    moteur.ProduceInfantry(x,y,soldat,ListOfElements); 
                                                 //   answer = "no";
                                                 //}
-                                              
                                             }
                                         }       // [Production d'avion]
                                             if (tileLetter=="rA" || tileLetter == "bA"){
@@ -279,16 +279,13 @@ void testSFML() {
                                                //std::cout << "Build fighter 'yes' or 'no' ?" <<std::endl;
                                                //std::cin >> answer;
                                                //if (answer=="yes") {
-                                                   moteur.ProduceFighter(x,y,avion,ListOfElements); 
-
+                                                   moteur.ProduceFighter(x,y,avion,ListOfElements);
                                                 //   answer = "no";
                                                 //}
-                                              
                                             }
                                         }
 				}
                             }
-                            
 				if (event.mouseButton.button == sf::Mouse::Right) {
 					if (action == "bouger") {
 						x2 = event.mouseButton.x;
@@ -314,7 +311,6 @@ void testSFML() {
                                             std::cout << "Vous voulez capturer: " << x2 << "," <<y2<< "," << tileLetter2 << std::endl;
                                             toCapture->setX(x2);
                                             toCapture->setY(y2);
-
                                             moteur.CaptureEnemy(capturer,toCapture);
                                             // [ l'unité se déplace aussi à la case sélectionnée]
                                             action = "rien";
@@ -333,19 +329,13 @@ void testSFML() {
 					}
                                         
 				}
-                        }*/
+                        }
 			/*}*/
-
-
 		}
-            
 		// on dessine le niveau
 		window.clear();
 		window.draw(map);
 		window.display();
-	
-
-
         }
 }
 

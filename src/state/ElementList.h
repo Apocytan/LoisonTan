@@ -2,6 +2,7 @@
 #ifndef STATE__ELEMENTLIST__H
 #define STATE__ELEMENTLIST__H
 
+#include <iostream>
 #include <vector>
 
 namespace state {

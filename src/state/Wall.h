@@ -2,6 +2,7 @@
 #ifndef STATE__WALL__H
 #define STATE__WALL__H
 
+#include <iostream>
 
 namespace state {
   class Element;

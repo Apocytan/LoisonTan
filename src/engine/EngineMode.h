@@ -2,6 +2,7 @@
 #ifndef ENGINE__ENGINEMODE__H
 #define ENGINE__ENGINEMODE__H
 
+#include <iostream>
 
 namespace engine {
 

@@ -2,6 +2,7 @@
 #ifndef STATE__STRUCTURE__H
 #define STATE__STRUCTURE__H
 
+#include <iostream>
 
 namespace state {
   class Element;

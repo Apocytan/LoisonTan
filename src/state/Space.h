@@ -2,6 +2,7 @@
 #ifndef STATE__SPACE__H
 #define STATE__SPACE__H
 
+#include <iostream>
 
 namespace state {
   class Element;

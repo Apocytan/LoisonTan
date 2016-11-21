@@ -2,6 +2,7 @@
 #ifndef STATE__STRUCTURETYPEID__H
 #define STATE__STRUCTURETYPEID__H
 
+#include <iostream>
 
 namespace state {
 

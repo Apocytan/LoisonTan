@@ -2,6 +2,7 @@
 #ifndef ENGINE__PRODUCEUNIT__H
 #define ENGINE__PRODUCEUNIT__H
 
+#include <iostream>
 
 namespace state {
   class MobileElement;

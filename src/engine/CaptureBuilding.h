@@ -2,6 +2,7 @@
 #ifndef ENGINE__CAPTUREBUILDING__H
 #define ENGINE__CAPTUREBUILDING__H
 
+#include <iostream>
 
 namespace state {
   class Structure;

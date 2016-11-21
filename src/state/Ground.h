@@ -2,6 +2,7 @@
 #ifndef STATE__GROUND__H
 #define STATE__GROUND__H
 
+#include <iostream>
 
 namespace state {
   class MobileElement;

@@ -2,6 +2,7 @@
 #ifndef ENGINE__ENGINE__H
 #define ENGINE__ENGINE__H
 
+#include <iostream>
 #include <vector>
 
 namespace state {

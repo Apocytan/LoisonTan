@@ -2,6 +2,7 @@
 #ifndef ENGINE__BUILDCOMMAND__H
 #define ENGINE__BUILDCOMMAND__H
 
+#include <iostream>
 #include <string>
 
 namespace engine {

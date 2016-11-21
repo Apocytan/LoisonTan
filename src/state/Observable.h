@@ -2,6 +2,7 @@
 #ifndef STATE__OBSERVABLE__H
 #define STATE__OBSERVABLE__H
 
+#include <iostream>
 #include <vector>
 
 namespace state {

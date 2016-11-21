@@ -2,6 +2,7 @@
 #ifndef ENGINE__ACTIONLIST__H
 #define ENGINE__ACTIONLIST__H
 
+#include <iostream>
 #include <vector>
 
 namespace state {

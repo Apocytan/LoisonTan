@@ -2,6 +2,7 @@
 #ifndef STATE__FIGHTER__H
 #define STATE__FIGHTER__H
 
+#include <iostream>
 
 namespace state {
   class Element;

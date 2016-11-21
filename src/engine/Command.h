@@ -2,6 +2,7 @@
 #ifndef ENGINE__COMMAND__H
 #define ENGINE__COMMAND__H
 
+#include <iostream>
 
 #include "CommandTypeID.h"
 

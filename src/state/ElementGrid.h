@@ -2,6 +2,7 @@
 #ifndef STATE__ELEMENTGRID__H
 #define STATE__ELEMENTGRID__H
 
+#include <iostream>
 
 namespace state {
   class State;

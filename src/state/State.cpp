@@ -9,12 +9,6 @@ using namespace state;
         this->units=units;
     }
     State::~State (){
-        if (&iron){
-            delete &iron;
-        }
-        if (&units){
-            delete &units;
-        }
     }
     int State::getIron() const{
         return iron;

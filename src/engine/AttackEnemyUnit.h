@@ -2,6 +2,7 @@
 #ifndef ENGINE__ATTACKENEMYUNIT__H
 #define ENGINE__ATTACKENEMYUNIT__H
 
+#include <iostream>
 
 namespace state {
   class MobileElement;
