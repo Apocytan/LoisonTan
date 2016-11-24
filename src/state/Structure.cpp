@@ -5,10 +5,11 @@ namespace state{
     Structure::Structure (){
         
     }
-    Structure::Structure (StructureTypeID sid,bool free, int color){
+    Structure::Structure (StructureTypeID sid,bool free, int color, int cp){
         this->structureTypeID=sid;
         this->free=free;
         this->color=color;
+        this->capturepoints=cp;
     }
     
     bool Structure::isFree () const{

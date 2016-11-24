@@ -8,11 +8,13 @@ namespace state {
   class ElementList;
   class ElementGrid;
   class Observable;
+  class Player;
 }
 
 #include "ElementList.h"
 #include "ElementGrid.h"
 #include "Observable.h"
+#include "Player.h"
 
 namespace state {
 
@@ -23,18 +25,12 @@ namespace state {
   protected:
     ElementList chars;
     ElementGrid grid;
-    int iron;
-    int units;
     // Operations
   public:
     State ();
     ~State ();
-    int getIron () const;
-    int getUnit () const;
     ElementGrid& getGrid ();
     ElementList& getChars ();
-    void setIron (int res);
-    void setUnits (int count);
     void setGrid (const ElementGrid& grid);
     void setChars (const ElementList& list);
   };

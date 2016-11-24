@@ -13,8 +13,8 @@ namespace engine {
 };
 namespace state {
   class Infantry;
-  class Fighter;
   class Structure;
+  class Fighter;
 };
 namespace engine {
   class Ruler;
@@ -43,11 +43,11 @@ namespace engine {
     EngineMode getMode () const;
     const state::State& getState () const;
     void addCommand (Command* cmd);
-    void ProduceInfantry (int x, int y, state::Infantry* unit, state::ElementList * ListOfElements);
-    void ProduceFighter (int x, int y, state::Fighter* unit, state::ElementList * ListOfElements);
-    void AttackEnemy (state::Element* attacker, state::Element* defender);
+    void ProduceInfantry (int x, int y, state::ElementList * ListOfElements, state::ElementList* ListOfTurn, int playercolor);
+    void ProduceFighter (int x, int y, state::ElementList * ListOfElements, state::ElementList* ListOfTurn, int playercolor);
+    void AttackEnemy (state::Element* attacker, state::Element* defender, state::ElementList* StaticMap, state::ElementList* MapUnits);
     void CaptureEnemy (state::Infantry* capturer, state::Structure* captured);
-    void MoveUnit (state::Element* mover, state::Element* destination, state::ElementList StaticMapElements);
+    void MoveUnit (state::Element* mover, state::Element* destination, state::ElementList* StaticMapElements, state::ElementList* MapUnits);
     bool update (int time);
   protected:
     void loadLevel (const char* file_name) const;

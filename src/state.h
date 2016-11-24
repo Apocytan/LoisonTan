@@ -20,6 +20,7 @@
 #include "state/Observable.h"
 #include "state/ElementList.h"
 #include "state/ElementGrid.h"
+#include "state/Player.h"
 #include "state/State.h"
 #include "state/StateEventID.h"
 #include "state/StateEvent.h"

@@ -65,24 +65,24 @@ namespace engine{
         // test du batiment concerné
         if (building.getStructureTypeID()==state::StructureTypeID::AIRPORT && building.isSpace()== 1){
             if (unitproduce->getTypeID() ==state::TypeID::FIGHTER){
-                if(current.getIron()>=unitproduce->getCost()){
+                /*if(current.getIron()>=unitproduce->getCost()){
                     // création d'une unité
                     //state::ElementList::elements.push(unitproduce);
                     // mise à jour des ressources
                     current.setIron(current.getIron()-unitproduce->getCost());
                     // unité produite dont la couleur est la même que le batiment
                     unitproduce->setColor(building.getColor());
-                }
+                }*/
             }
             
         }
         if (building.getStructureTypeID()==state::StructureTypeID::FACTORY && building.isSpace()== 1){
             if (unitproduce->getTypeID() ==state::TypeID::INFANTRY || unitproduce->getTypeID()==state::TypeID::TANK||unitproduce->getTypeID() ==state::TypeID::ANTIAIR ){
-                if(current.getIron()>=unitproduce->getCost()){
+                /*if(current.getIron()>=unitproduce->getCost()){
                     //state::ElementList::elements.push(unitproduce); //ajout de l'unité
                     unitproduce->setColor(building.getColor());
                     current.setIron(current.getIron()-unitproduce->getCost());
-                }
+                }*/
             }
         }
 

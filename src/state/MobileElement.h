@@ -25,6 +25,7 @@ namespace state {
     int damage;
     int cost;
     TypeID type;
+    bool ActionPoint;
     // Operations
   public:
     MobileElement ();
@@ -48,6 +49,8 @@ namespace state {
     int getCost () const;
     virtual TypeID getTypeID () const;
     void setTypeID (TypeID a);
+    void setActionPoint (bool point);
+    bool getActionPoint ();
   };
 
 };

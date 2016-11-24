@@ -5,17 +5,10 @@
 
 using namespace state;
     State::State(): chars(*this),grid(*this){
-        this->iron=iron;
-        this->units=units;
     }
     State::~State (){
     }
-    int State::getIron() const{
-        return iron;
-    }
-    int State::getUnit() const{
-        return units;
-    }
+
 
     ElementGrid& State::getGrid (){
         return grid;
@@ -24,15 +17,10 @@ using namespace state;
     ElementList& State::getChars (){
         return chars;
     }
-    void State::setIron (int res){
-        this->iron=res;
-    }
-    void State::setUnits (int count){
-        this->units=count;
-    }
+
     void State::setGrid (const ElementGrid& grid){
-        //this->grid=state.grid;
+        //this->grid&=grid;
     }
     void State::setChars (const ElementList& list){
-        //this->chars=list;
+       // this->chars&=list;
     }
