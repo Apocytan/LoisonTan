@@ -1,24 +1,48 @@
 #include <iostream>
-
+#include <SFML/Network/../Window/Keyboard.hpp>
 #include <vector>
 #include "TileMap.cpp"
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include "../src/engine/Engine.h"
-#include "engine/ProduceUnit.h"
 #include "../src/state.h"
 #include "../src/state/TypeID.h"
-#include "engine/BuildCommand.h"
 #include "state/ElementList.h"
 #include "state/Space.h"
 #include "state/Wall.h"
 #include "state/Structure.h"
+#include "engine/Command.h"
+#include "engine/ProduceFighterCommand.h"
+#include "engine/ProduceInfantryCommand.h"
+#include "engine/CaptureCommand.h"
+#include "engine/AttackCommand.h"
+#include "engine/MoveCommand.h"
 void testSFML() {
-        engine::Engine moteur;
-        engine::Engine tile;
+        std::cout << "     _________________________________________________________________" << std::endl;
+        std::cout << "    |                                                                 |" << std::endl;
+        std::cout << "    |  Bienvenue sur ''Advance Wars'' par Alexis LOISON et Eric TAN   |" << std::endl;
+        std::cout << "    |    Pour terminer votre tour appuyer sur ESPACE puis validez     |" << std::endl;
+        std::cout << "    |_________________________________________________________________|" << std::endl;
+                // instanciation de la liste des commandes
+        std::vector<engine::Command*> listecommandes;
+        std::vector<engine::Action*> listeactions;
+        engine::CommandSet* gamecmd;
+        gamecmd = new engine::CommandSet(listecommandes);
+        engine::ActionList* gameact;
+        gameact=new engine::ActionList(listeactions);
+        engine::Engine* moteur;
+        moteur=new engine::Engine(gamecmd,gameact);
+        std::mutex render_mutex;
         
-                // Ressources de départ
+                // instanciation de la liste des actions
+       /* std::vector<engine::Action*> listeactions;
+        engine::ActionList* gameact;
+        gameact = new engine::ActionList(listeactions);
+        */
+       // engine::Engine moteur(gamecmd,gameact);
+        
+                // [Déclaration des différentes listes utilisées]
         int selected=0;
         state::State firstturn;
         state::ElementList* ListOfElements;
@@ -29,19 +53,10 @@ void testSFML() {
         ListOfElements = new state::ElementList(firstturn);
         ListOfUnits = new state::ElementList(firstturn);
         ListOfPlayer=new state::ElementList(firstturn);
-        ListOfIa=new state::ElementList(firstturn);
-
-        /*state::Fighter *avion=new state::Fighter;
-        state::Tank *charassaut=new state::Tank;
-        state::AntiAir *aa=new state::AntiAir;
-        state::Structure *batiment= new state::Structure;*/
-
-
-	// on crée la fenêtre
-	std::string action="rien";
-        std::string tileLetter,tileLetter2;
-        std::string answer="no";
-	sf::RenderWindow window(sf::VideoMode(600, 256), "Tilemap");
+        ListOfIa=new state::ElementList(firstturn); 
+        // J0 : neutre, J1 : bleu, J2 : rouge
+        int playercolor=2;  
+	sf::RenderWindow window(sf::VideoMode(600, 256), "Tilemap"); // création de la fenêtre
         int x=0;
         int y=0;
 	// on définit le niveau à l'aide de numéro de tuiles
@@ -65,11 +80,6 @@ void testSFML() {
 		"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","bF","G","G","G","bF",
 	};
 
-        //Création du deuxième tableau d'éléments
-        //state::Element* elemtemp;
-        //state::Structure* batiment=static_cast<state::Structure*>(elemtemp);
-        //state::Space* espace=static_cast<state::Space*>(elemtemp);
-        //state::Wall* mur = static_cast<state::Wall*>(elemtemp);
         for(unsigned int i=0;i<level.size();i++){
             x++;
             if(x==33){
@@ -77,13 +87,10 @@ void testSFML() {
                 y++;
             }
             
-            
-            if(level[i]=="rF" || level[i]=="rA" || level[i]=="rHQ" || level[i]=="rM" || level[i]=="rB"){//structures rouges
+            // [Rajout des structures rouges]
+            if(level[i]=="rF" || level[i]=="rA" || level[i]=="rHQ" || level[i]=="rM" || level[i]=="rB"){
 
-                //batiment= new state::Structure;
-                //batiment->setColor(2);
                 if(level[i]=="rF"){
-                    //batiment->setStructureTypeID(state::FACTORY,1);
                     ListOfElements->elements.push_back(new state::Structure(state::FACTORY, 1, 2,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
@@ -91,207 +98,200 @@ void testSFML() {
                     
                 }
                 if(level[i]=="rA"){
-                    //batiment->setStructureTypeID(state::AIRPORT,1);
                     ListOfElements->elements.push_back(new state::Structure(state::AIRPORT, 1, 2,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfPlayer->elements.push_back(ListOfElements->elements.at(i));
                 }
                 if(level[i]=="rHQ"){
-                    //batiment->setStructureTypeID(state::HEADQUARTER,1);
                     ListOfElements->elements.push_back(new state::Structure(state::HEADQUARTER, 1, 2,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfPlayer->elements.push_back(ListOfElements->elements.at(i));
                 }
                 if(level[i]=="rM"){
-                    //batiment->setStructureTypeID(state::MINE,1);
                     ListOfElements->elements.push_back(new state::Structure(state::MINE, 1, 2,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfPlayer->elements.push_back(ListOfElements->elements.at(i));
                 }
                 if(level[i]=="rB"){
-                    //batiment->setStructureTypeID(state::BUILDING,1);
                     ListOfElements->elements.push_back(new state::Structure(state::BUILDING, 1, 2,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfPlayer->elements.push_back(ListOfElements->elements.at(i));
                 }
             }
-            if(level[i]=="bF" || level[i]=="bA" || level[i]=="bHQ" || level[i]=="bM" || level[i]=="bB"){//structures bleues
-
-                //batiment= new state::Structure;
-                //batiment->setColor(1);
+            // [Rajout des structures bleues]
+            if(level[i]=="bF" || level[i]=="bA" || level[i]=="bHQ" || level[i]=="bM" || level[i]=="bB"){
+                
                 if(level[i]=="bF"){
-                    //batiment->setStructureTypeID(state::FACTORY,1);
                     ListOfElements->elements.push_back(new state::Structure(state::FACTORY, 1, 1,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfIa->elements.push_back(ListOfElements->elements.at(i));
-                   
                 }
+                
                 if(level[i]=="bA"){
-                    //batiment->setStructureTypeID(state::AIRPORT,1);
                     ListOfElements->elements.push_back(new state::Structure(state::AIRPORT, 1, 1,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfIa->elements.push_back(ListOfElements->elements.at(i));
                 }
+                
                 if(level[i]=="bHQ"){
-                    //batiment->setStructureTypeID(state::HEADQUARTER,1);
                     ListOfElements->elements.push_back(new state::Structure(state::HEADQUARTER, 1, 1,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfIa->elements.push_back(ListOfElements->elements.at(i));
                 }
+                
                 if(level[i]=="bM"){
-                    //batiment->setStructureTypeID(state::MINE,1);
                     ListOfElements->elements.push_back(new state::Structure(state::MINE, 1, 1,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfIa->elements.push_back(ListOfElements->elements.at(i));
                 }
+                
                 if(level[i]=="bB"){
-                    //batiment->setStructureTypeID(state::BUILDING,1);
                     ListOfElements->elements.push_back(new state::Structure(state::BUILDING, 1, 1,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                     ListOfIa->elements.push_back(ListOfElements->elements.at(i));
                 }
             }
+            
+            // [Rajout des structures neutres]
             if(level[i]=="nF" || level[i]=="nA"  || level[i]=="nM" || level[i]=="nB"){//structures neutres
 
-                //batiment= new state::Structure;
-                //batiment->setColor(0);
                 if(level[i]=="nF"){
-                    //batiment->setStructureTypeID(state::FACTORY,1);
                     ListOfElements->elements.push_back(new state::Structure(state::FACTORY, 1, 0,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="nA"){
-                    //batiment->setStructureTypeID(state::AIRPORT,1);
                     ListOfElements->elements.push_back(new state::Structure(state::AIRPORT, 1, 0,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="nM"){
-                    //batiment->setStructureTypeID(state::MINE,1);
                     ListOfElements->elements.push_back(new state::Structure(state::MINE, 1, 0,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="nB"){
-                    //batiment->setStructureTypeID(state::BUILDING,1);
                     ListOfElements->elements.push_back(new state::Structure(state::BUILDING, 1, 0,20));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
             }
-            if(level[i]=="vR" || level[i]=="hR" || level[i]=="brR" || level[i]=="blR" || level[i]=="tlR" || level[i]=="trR" || level[i]=="R" || level[i]=="G"){//spaces
+            
+            // [Rajout des "space"]
+            if(level[i]=="vR" || level[i]=="hR" || level[i]=="brR" || level[i]=="blR" || level[i]=="tlR" || level[i]=="trR" || level[i]=="R" || level[i]=="G"){
                 
                 if(level[i]=="vR"){
-                //    espace= new state::Space(state::verticalROAD);
                     ListOfElements->elements.push_back(new state::Space(state::verticalROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="hR"){
-                //    espace= new state::Space(state::horizontalROAD);
                     ListOfElements->elements.push_back(new state::Space(state::horizontalROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="brR"){
-                //    espace= new state::Space(state::bottomRightROAD);
                     ListOfElements->elements.push_back(new state::Space(state::bottomRightROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="blR"){
-                //    espace= new state::Space(state::bottomLeftROAD);
                     ListOfElements->elements.push_back(new state::Space(state::bottomLeftROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="tlR"){
-                //    espace= new state::Space(state::topLeftROAD);
                     ListOfElements->elements.push_back(new state::Space(state::topLeftROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="trR"){
-                //    espace= new state::Space(state::TopRightROAD);
                     ListOfElements->elements.push_back(new state::Space(state::TopRightROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="R"){
-                //    espace= new state::Space(state::ROAD);
                     ListOfElements->elements.push_back(new state::Space(state::ROAD));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="G"){
                     ListOfElements->elements.push_back(new state::Space(state::GRASS));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
             }
-            if(level[i]=="S" || level[i]=="hW" || level[i]=="tW" || level[i]=="lW" || level[i]=="vW" || level[i]=="bW" || level[i]=="rW" || level[i]=="W"){//walls
+            
+            // [Rajout des "wall"]
+            if(level[i]=="S" || level[i]=="hW" || level[i]=="tW" || level[i]=="lW" || level[i]=="vW" || level[i]=="bW" || level[i]=="rW" || level[i]=="W"){
 
-               
                 if(level[i]=="S"){
-                    //mur= new state::Wall(state::SEA);
                     ListOfElements->elements.push_back(new state::Wall(state::SEA));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="hW"){
-                    //mur= new state::Wall(state::horizontalWater);
                     ListOfElements->elements.push_back(new state::Wall(state::horizontalWater));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="tW"){
-                    //mur= new state::Wall(state::topWater);
                     ListOfElements->elements.push_back(new state::Wall(state::topWater));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="lW"){
-                    //mur= new state::Wall(state::leftWater);
                     ListOfElements->elements.push_back(new state::Wall(state::leftWater));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="vW"){
-                    //mur= new state::Wall(state::verticalWater);
                     ListOfElements->elements.push_back(new state::Wall(state::verticalWater));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="bW"){
-                    //mur= new state::Wall(state::bottomWater);
                     ListOfElements->elements.push_back(new state::Wall(state::bottomWater));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="rW"){
-                    //mur= new state::Wall(state::rightWater);
                     ListOfElements->elements.push_back(new state::Wall(state::rightWater));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
+                
                 if(level[i]=="W"){
-                    //mur= new state::Wall(state::WOODS);
                     ListOfElements->elements.push_back(new state::Wall(state::WOODS));
                     ListOfElements->elements.at(i)->setX(x);
                     ListOfElements->elements.at(i)->setY(y);
                 }
-            }
-            
+            } 
         }
         for(unsigned int i=0;i<level.size();i++){
             
@@ -299,9 +299,6 @@ void testSFML() {
             
         }
         state::MobileElement* me;
-        /*me->setDamage(3);
-        me->setHp(10);
-        me->setSpeed(3);*/
         state::Infantry* inf=static_cast<state::Infantry*>(me);
         inf=new state::Infantry();
         inf->setDamage(3);
@@ -323,6 +320,8 @@ void testSFML() {
         ListOfUnits->elements.insert(ListOfUnits->elements.begin()+2+2*33,inf);
         ListOfUnits->elements.erase(ListOfUnits->elements.end()-(2+2*33+1));
         ListOfUnits->elements.insert(ListOfUnits->elements.end()-(2+2*33),inf2);
+        ListOfPlayer->elements.push_back(inf);
+        ListOfIa->elements.push_back(inf2);
 	// on crée la tilemap avec le niveau précédemment défini
 	TileMap map;
         std::vector<std::string> levelwUnit=level;
@@ -330,6 +329,7 @@ void testSFML() {
 	if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfUnits, 33, 16))
 		std::cout << "an error occured" << std::endl;
         sf::Event event;
+        std::cout << "Au joueur Rouge de jouer " << std::endl;
         
             // [Boucle principale pour l'affichage]
 	while (window.isOpen())
@@ -345,89 +345,168 @@ void testSFML() {
                     }*/
 			if (event.type == sf::Event::Closed){
 				window.close();}
-
+                        
+                        // Jeu à tour de rôle
+                        if (event.type==sf::Event::KeyPressed){
+                            
+                            if(event.key.code==sf::Keyboard::Space){
+                                
+                                if(playercolor==1){
+                                    
+                                    playercolor++;
+                                }
+                                else{
+                                    
+                                    playercolor--;
+                                }
+                                if(playercolor==1)
+                                    std::cout << "Au joueur Bleu de jouer " << std::endl;
+                                if(playercolor==2)
+                                    std::cout << "Au joueur Rouge de jouer " << std::endl;
+                            }
+                        }
+                        
 			if (event.type == sf::Event::MouseButtonPressed) {
                             if(event.type==sf::Event::MouseButtonPressed){    
                                 if (event.mouseButton.button == sf::Mouse::Left) {
-                                            // [Récupération de la tuile initiale]
-                                    x = event.mouseButton.x;
-                                    y= event.mouseButton.y;
+                                    
+                                    // [Récupération de la tuile initiale] 
+                                    //render_mutex.lock();
+                                    x=event.mouseButton.x;
+                                    y=event.mouseButton.y;
                                     x=x/16;
                                     y=y/16;
-                                    //tileLetter=levelwUnit[x+y*33];
-                                    std::cout << "Got your tile : " << x << "," <<y<< "," /*<< tileLetter*/ << std::endl;
+                                    std::cout << "Tuile sélectionnée : " << x << "," <<y<<std::endl;
                                     ListOfUnits->elements.at(x+y*33)->setX(x);
                                     ListOfUnits->elements.at(x+y*33)->setY(y);
                                     elm=ListOfUnits->elements.at(x+y*33);
-                                    selected=1;
+                                    if(elm->getTypeID()!=state::TypeID::SPACE || elm->getTypeID()!=state::TypeID::WALL){
+                                        if(!elm->isStatic()){
+                                            state::MobileElement* elmm=static_cast<state::MobileElement*>(elm);
+                                            if(elmm->getColor()==playercolor){
+                                                selected=1;
+                                            }else{
+                                                std::cout<<"cette unité ne vous appartient pas"<<std::endl;
+                                            }
+                                        }
+                                    }else{std::cout<<"l'élément sélectionné n'est pas contrôlable"<<std::endl;}
+                                    
+                                    
                                     if(elm->getTypeID()==state::TypeID::STRUCTURE){
                                         state::Structure* elms=static_cast<state::Structure*>(elm);
                                         if(elms->getStructureTypeID()==state::StructureTypeID::AIRPORT){
-                                            std::cout<<"je produis un fighter"<<std::endl;
-                                            moteur.ProduceFighter(x,y,ListOfUnits,ListOfPlayer,2);
+                                            
+                                            if (playercolor == elms->getColor()){
+                                                std::cout<<"Commande de production d'un fighter enregistrée"<<std::endl;
+                                                if(playercolor==2){
+                                                    moteur->addCommand(new engine::ProduceFighterCommand(x,y,ListOfUnits,ListOfPlayer,playercolor));
+                                                }else{
+                                                    moteur->addCommand(new engine::ProduceFighterCommand(x,y,ListOfUnits,ListOfIa,playercolor));
+                                                }
+                                                
+                                                moteur->apply();
+                                                moteur->run();
+                                                //render_mutex.unlock();
+                                            }
+                                            else{
+                                                std::cout<<"Ceci ne vous appartient pas !"<<std::endl;
+                                            }
+                                            
                                         }
+                                        
                                         if(elms->getStructureTypeID()==state::StructureTypeID::FACTORY){
-                                            std::cout<<"je produis une infrantrie"<<std::endl;
-                                            moteur.ProduceInfantry(x,y,ListOfUnits,ListOfPlayer,2);
+                                            if (playercolor == elms->getColor()){
+                                                std::cout<<"Commande de production d'une infantrie enregistrée"<<std::endl;
+                                                if(playercolor==2){
+                                                    moteur->addCommand(new engine::ProduceInfantryCommand(x,y,ListOfUnits,ListOfPlayer,playercolor));
+                                                }else{
+                                                    moteur->addCommand(new engine::ProduceInfantryCommand(x,y,ListOfUnits,ListOfIa,playercolor));
+                                                }
+                                                moteur->apply();
+                                                moteur->run();
+                                                //render_mutex.unlock();
+                                            }
+                                            else{
+                                                std::cout<<"Ceci ne vous appartient pas !"<<std::endl;
+                                            }
                                         }
-                                        if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfUnits, 33, 16)) {
+                                        //render_mutex.lock();
+                                        if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfUnits, 33, 16)) {//inutile de faire un raffraichissement si il n'y a pas de changement d'état
 							std::cout << "an error occured" << std::endl;
                                         }
-                                    }
-                                    
-                                             
+                                        //render_mutex.unlock();
+                                    }        
 				}
-                                
                             }
 				if (event.mouseButton.button == sf::Mouse::Right) {
                                     if(selected==1){
-                                        
                                         x = event.mouseButton.x;
                                         y= event.mouseButton.y;
                                         x=x/16;
                                         y=y/16;
-                                    //tileLetter=levelwUnit[x+y*33];
-                                        std::cout << "Got your tile : " << x << "," <<y<< "," /*<< tileLetter*/ << std::endl;
+                                        std::cout << "Tuile sélectionnée : " << x << "," <<y<<std::endl;
                                         ListOfUnits->elements.at(x+y*33)->setX(x);
                                         ListOfUnits->elements.at(x+y*33)->setY(y);
-                                        state::Element* eld=ListOfUnits->elements.at(x+y*33);
+                                        state::Element* eld=ListOfUnits->elements.at(x+y*33); // on définie le 2e élément
+                                            // [Déplacement sur une case space]
                                         if(eld->getTypeID()==state::TypeID::SPACE ){
-                                            moteur.MoveUnit(elm,eld,ListOfElements,ListOfUnits);
+                                            moteur->addCommand(new engine::MoveCommand(elm,eld,ListOfElements,ListOfUnits));
+                                            moteur->apply();
+                                            moteur->run();
+                                            //render_mutex.unlock();
                                         }
+                                        if(elm->getTypeID()==state::TypeID::FIGHTER && eld->getTypeID()==state::TypeID::WALL){
+                                            moteur->addCommand(new engine::MoveCommand(elm,eld,ListOfElements,ListOfUnits));
+                                            moteur->apply();
+                                            moteur->run();
+                                            //render_mutex.unlock();
+                                        }
+                                            // [Capture sur une case structure]
                                         if(eld->getTypeID()==state::TypeID::STRUCTURE){
                                             state::Structure* sd=static_cast<state::Structure*>(eld);
                                             state::MobileElement* sm=static_cast<state::MobileElement*>(elm);
                                             if(sd->getColor()==sm->getColor()){
-                                                moteur.MoveUnit(elm,eld,ListOfElements,ListOfUnits);
+                                                moteur->addCommand(new engine::MoveCommand(elm,eld,ListOfElements,ListOfUnits));
+                                                moteur->apply();
+                                                moteur->run();
+                                                //render_mutex.unlock();
                                             }else{
                                                 if(sm->getTypeID()==state::INFANTRY){
-                                                    std::cout << "Capturer ? y or n" <<std::endl;
-                                                    std::cin >> answer;
-                                                    if(answer=="y"){
+                                                    
+                                                    int range = abs((eld->getY()-sm->getY())+(eld->getX()-sm->getX()));
+                                                    if(range == 1){
                                                         state::Infantry* infm=static_cast<state::Infantry*>(sm);
                                                         state::Structure* toBeCaptured=static_cast<state::Structure*>(eld);
-                                                        std::cout<<"capture!"<<std::endl;
-                                                        moteur.CaptureEnemy(infm,toBeCaptured);
+                                                        std::cout<<"Commande de capture enregistrée !"<<std::endl;
+                                                        moteur->addCommand(new engine::CaptureCommand(infm,toBeCaptured));
+                                                        moteur->apply();
+                                                        moteur->run();
+                                                        //render_mutex.unlock();
+                                                    }
+                                                    if( range > 1){
+                                                        std::cout << "Il se peut que vous soyez trop éloigné : distance doit être égal à 1 case" << std::endl;
                                                     }
                                                 }else{
-                                                    std::cout<<"seul les infantries peuvent capturer!"<<std::endl;
+                                                    std::cout<<"Il n'y a que les infantries qui peuvent capturer des structures"<<std::endl;
                                                 }
                                             }
                                         }
                                         if(eld->getTypeID()==state::TypeID::ANTIAIR || eld->getTypeID()==state::TypeID::FIGHTER || eld->getTypeID()==state::TypeID::INFANTRY || eld->getTypeID()==state::TypeID::TANK){
-                                            std::cout<<"on attaque"<<std::endl;
-                                            moteur.AttackEnemy(elm,eld,ListOfElements,ListOfUnits);
+                                            std::cout<<"Commande d'attaque enregistrée"<<std::endl;
+                                            moteur->addCommand(new engine::AttackCommand(elm,eld,ListOfElements,ListOfUnits));
+                                            moteur->apply();
+                                            moteur->run();
+                                            //render_mutex.unlock();
                                         }
+                                        //render_mutex.lock();
                                         if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfUnits, 33, 16)) {
 							std::cout << "an error occured" << std::endl;
 						}
+                                        //render_mutex.unlock();
                                         selected=0;
-                                    }else{std::cout<<"aucune unité sélectionné"<<std::endl;}
-					
-                                        
+                                    }else{std::cout<<"Aucune unité sélectionné"<<std::endl;}
 				}
                         }
-			
 		}
 		// on dessine le niveau
 		window.clear();

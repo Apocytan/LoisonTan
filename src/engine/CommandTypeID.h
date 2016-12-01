@@ -7,7 +7,12 @@
 namespace engine {
 
   enum CommandTypeID {
-    LOAD     = 0
+    LOAD     = 0,
+    ATTACKCOMMAND     = 1,
+    PRODUCEFIGHTERCOMMAND     = 2,
+    PRODUCEINFANTRYCOMMAND     = 3,
+    CAPTURECOMMAND     = 4,
+    MOVECOMMAND     = 5
   };
 
 };

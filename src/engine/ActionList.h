@@ -5,11 +5,11 @@
 #include <iostream>
 #include <vector>
 
-namespace state {
-  class State;
-};
 namespace engine {
   class Action;
+};
+namespace state {
+  class State;
 }
 
 #include "state/State.h"
@@ -21,13 +21,11 @@ namespace engine {
   class ActionList {
     // Associations
     // Attributes
-  protected:
-    state::State& s;
+  public:
     std::vector<Action*> actions;
-    bool notify;
     // Operations
   public:
-    ActionList (state::State& s, bool notify);
+    ActionList (std::vector<Action*> actions);
     ~ActionList ();
     int size () const;
     Action* get (int i) const;

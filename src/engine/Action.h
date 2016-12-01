@@ -11,6 +11,7 @@ namespace engine {
     // Operations
   public:
     virtual ~Action ();
+    virtual void execute () const = 0;
   };
 
 };

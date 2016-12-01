@@ -1,22 +1,42 @@
 #include "Engine.h"
+#include <pthread.h>
+#include <vector>
+#include <list>
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
+#include "Attack.h"
+#include "Move.h"
+#include "ProduceFighter.h"
+#include "ProduceInfantry.h"
+#include "AttackCommand.h"
+#include "CaptureCommand.h"
+#include "ProduceFighterCommand.h"
+#include "MoveCommand.h"
+#include "ProduceInfantryCommand.h"
+#include "Capture.h"
+#include "CaptureCommand.h"
 namespace engine{
     
     Engine::~Engine (){
         
     }
  
-    Engine::Engine (){
-        
+    Engine::Engine (CommandSet* commandset, ActionList* actionlist){
+        this->commandset=commandset;
+        this->actionlist=actionlist;
     }
     EngineMode  Engine::getMode () const{
         return PLAY; 
     }
 
     void  Engine::addCommand (Command* cmd){
-        commands.push_back(cmd);
-        std::cout<<"COMMAND ADDED" << std::endl;
+        engine_mutex.lock();
+        commandset->setCommand(cmd);
+        engine_mutex.unlock();
+    }
+    
+    void Engine::addAction (Action* action){
+        actionlist->actions.push_back(action);
     }
     /*void  Engine::takeCommands (CommandSet& commands){
         // prend les commandes du clavier
@@ -30,146 +50,52 @@ namespace engine{
     void  Engine::setMode (EngineMode mode){
         
     }
-
     
-
-
-
-    
-    // renvoi le type pour ruler
-    void  Engine::ProduceInfantry (int x, int y, state::ElementList *ListOfUnits, state::ElementList* ListOfTurn,int playercolor){
-            // [ On créé son instance]
-            state::MobileElement* unit ;
-            state::Infantry* soldat = static_cast<state::Infantry*>(unit);
-            soldat = new state::Infantry();
-            // [ On définit ses statistiques]
-            soldat->setSpeed(3);
-            soldat->setX(x);
-            soldat->setY(y);
-            soldat->setPosition(x+y*33); 
-            soldat->setRank(0);
-            soldat->setHp(10);
-            soldat->setDamage(3);
-            soldat->setColor(playercolor);
-            // [ On ajoute sa tuile ]
-            ListOfUnits->elements.erase(ListOfUnits->elements.begin()+x+y*33);
-            ListOfUnits->elements.insert(ListOfUnits->elements.begin()+x+y*33,soldat);
-            ListOfTurn->elements.push_back(soldat);
-            std::cout<< "Fighter created" <<std::endl;
-    }
-    void Engine::ProduceFighter(int x, int y, state::ElementList *ListOfUnits, state::ElementList* ListOfTurn,int playercolor){
-            // [ On créé son instance]
-            state::MobileElement* unit ;
-            state::Fighter* avion = static_cast<state::Fighter*>(unit);
-            avion = new state::Fighter();
-            // [ On définit ses statistiques]
-            avion->setSpeed(5);
-            avion->setX(x);
-            avion->setY(y);
-            avion->setPosition(x+y*33); 
-            avion->setRank(0);
-            avion->setHp(10);
-            avion->setDamage(3);
-            avion->setColor(playercolor);
-            // [ On ajoute sa tuile ]
-            ListOfUnits->elements.erase(ListOfUnits->elements.begin()+x+y*33);
-            ListOfUnits->elements.insert(ListOfUnits->elements.begin()+x+y*33,avion);
-            ListOfTurn->elements.push_back(avion);
-            std::cout<< "Fighter created" <<std::endl;
-    }
-    
-void Engine::MoveUnit (state::Element* mover, state::Element* destination, state::ElementList* StaticMapElements, state::ElementList* MapUnits){
-    if(mover->isStatic()!=1 && destination->isStatic()==1){
-            int i=mover->getX();
-            int j=mover->getY();
-            std::cout<<mover->getX()<< i<<std::endl;
-            std::cout<<mover->getY()<< j<< std::endl;
-            
-            mover->setX(destination->getX());
-            mover->setY(destination->getY());
-            std::cout<<mover->getX()<< i<<std::endl;
-            std::cout<<mover->getY()<< j<< std::endl;
-            int x=destination->getX();
-            int y=destination->getY();
-            mover->setX(x);
-            mover->setY(y);
-            MapUnits->elements.erase(MapUnits->elements.begin()+x+y*33);//on efface l'élément de destination
-            MapUnits->elements.insert(MapUnits->elements.begin()+x+y*33,mover);//on le remplace par l'élément que l'on bouge
-            
-            MapUnits->elements.erase(MapUnits->elements.begin()+i+j*33);//on efface l'élément de départ
-            MapUnits->elements.insert(MapUnits->elements.begin()+i+j*33,StaticMapElements->elements.at(i+j*33));//on insert l'élément issus de la map où se trouvait notre unité
-            
-            
-            
-    }else{
-        std::cout<<"votre unité n'est pas déplaçable"<<std::endl;
-    }
-        //}
+    void Engine::apply (){
+        engine_mutex.lock();
         
-}
-    
-void  Engine::CaptureEnemy (state::Infantry *capturer, state::Structure *captured){
-    
-        if (capturer->getColor() != captured->getColor()){
-            if(captured->isFree()==1){
-                captured->setCapturepoints(captured->getCapturepoints()-capturer->getHp());
-                // si batiment non capturé
-                if  (captured->getCapturepoints() >0){
-                      std::cout<<"Il reste " << captured->getCapturepoints()<< "points de capture"<< std::endl;  
-                }
-            //si batiment capturé
-                else{
-                    captured->setColor(capturer->getColor()); // on change sa couleur
-                    captured->setCapturepoints(20); // on remet ses points à 20
-                }
-                /*capturer->setX(x);
-                capturer->setY(y);*/
+        while(commandset->size()!=0){
+            engine::CommandTypeID commandID=commandset->commands.front()->getCommandTypeID();
+            engine::Command* cmd;
+            cmd=commandset->commands.front();
+            if(commandID==CommandTypeID::ATTACKCOMMAND){
+                engine::AttackCommand* cmdAttck=static_cast<engine::AttackCommand*>(cmd);
+                actionlist->actions.push_back(new engine::Attack(cmdAttck->getAttacker(), cmdAttck->getDefender(), cmdAttck->getStaticMap(), cmdAttck->getMapUnits()));
             }
-        }
-}
-    
-void Engine::AttackEnemy(state::Element* attack, state::Element* defend, state::ElementList* StaticMapElements, state::ElementList* MapUnits ) {
-   
-    state::MobileElement* attacker=static_cast<state::MobileElement*>(attack);
-    state::MobileElement* defender=static_cast<state::MobileElement*>(defend);
-    int damageatk = attacker->getDamage()*attacker->getHp()*0.1;
-    //int damagedef = defender->getDamage()*defender->getHp()/10;
-    int range = abs((defend->getY()-attack->getY())+(defend->getX()-attack->getX()));
-           // [CONDITIONS D'ATTAQUE]
-            // [Point d'action]
-    if (range==1){
-           // [Couleurs différentes]
-        if (attacker->getColor() != defender->getColor()){
-            defender->setHp(defender->getHp()-damageatk); // HP du défenseur = Dégat de l'attaquant * ses hp(max10) * 0.1
-            std::cout << "Vous lui avez infligé " << damageatk << std::endl;
-                        // [Unité attaquée non vaincue => contre-attaque]
-            if(defender->getHp()>0){
-                if(defender->getDamage()*defender->getHp()/10<1){
-                    attacker->setHp(attacker->getHp()-1);
-                }else{
-                    attacker->setHp(attacker->getHp()-defender->getDamage()*defender->getHp()/10);
-                }
-                       // [Unité attaquante détruite lors de la contre-attaque]
-                if(attacker->getHp()==0){
-                    int x=attacker->getX();
-                    int y=attacker->getY();
-                    MapUnits->elements.erase(MapUnits->elements.begin()+x+y*33);
-                    MapUnits->elements.insert(MapUnits->elements.begin()+x+y*33,StaticMapElements->elements.at(x+y*33));
-                }
-            }else {
-                      // [Unité attaquée meurt => attaquant promu]
-                attacker->setRank(1);
-                        // [Tuile décor changé car unité attaquée détruite]
-                int x=defender->getX();
-                int y=defender->getY();
-                MapUnits->elements.erase(MapUnits->elements.begin()+x+y*33);
-                MapUnits->elements.insert(MapUnits->elements.begin()+x+y*33,StaticMapElements->elements.at(x+y*33));
+            if(commandID==CommandTypeID::CAPTURECOMMAND){
+                engine::CaptureCommand* cmdcap=static_cast<engine::CaptureCommand*>(cmd);
+                actionlist->actions.push_back(new engine::Capture(cmdcap->getCapturer(), cmdcap->getCaptured()));          
             }
-                    
+            if(commandID==CommandTypeID::MOVECOMMAND){
+                engine::MoveCommand* cmdmv=static_cast<engine::MoveCommand*>(cmd);
+                actionlist->actions.push_back(new engine::Move(cmdmv->getMover(), cmdmv->getDestination(), cmdmv->getStaticMapElements(), cmdmv->getMapUnits()));
+            }
+            if(commandID==CommandTypeID::PRODUCEFIGHTERCOMMAND){
+                engine::ProduceFighterCommand* cmdprodf=static_cast<engine::ProduceFighterCommand*>(cmd);
+                actionlist->actions.push_back(new engine::ProduceFighter(cmdprodf->getX(), cmdprodf->getY(), cmdprodf->getListOfElements(), cmdprodf->getListOfTurn(), cmdprodf->getPlayerColor()));
+            }
+            if(commandID==CommandTypeID::PRODUCEINFANTRYCOMMAND){
+                engine::ProduceInfantryCommand* cmdprodi=static_cast<engine::ProduceInfantryCommand*>(cmd);
+                actionlist->actions.push_back(new engine::ProduceInfantry(cmdprodi->getX(), cmdprodi->getY(), cmdprodi->getListOfElements(), cmdprodi->getListOfTurn(), cmdprodi->getPlayerColor()));
+            }
+            commandset->commands.erase(commandset->commands.begin());
         }
-        
+        engine_mutex.unlock();
     }
-    std::cout<< "vie de l'attaquant : " << attacker->getHp() <<std::endl;
-    std::cout<<"vie du défenseur: "<<defender->getHp()<<std::endl;
-}
+    
+    void Engine::run(){
+        if(actionlist->actions.empty()){
+            std::cout<<"aucune commande à exécuter"<<std::endl;
+        }
+        engine_mutex.lock();
+        while(!actionlist->actions.empty()){
+            actionlist->actions.front()->execute();
+            actionlist->actions.erase(actionlist->actions.begin());
+        }
+        engine_mutex.unlock();
+    }
+
+
+
+
 }

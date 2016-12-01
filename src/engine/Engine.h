@@ -3,28 +3,30 @@
 #define ENGINE__ENGINE__H
 
 #include <iostream>
-#include <vector>
+#include <mutex>
 
-namespace state {
-  class State;
-};
 namespace engine {
+  class CommandSet;
+  class ActionList;
   class Command;
+  class Action;
 };
 namespace state {
-  class Infantry;
-  class Structure;
   class Fighter;
-};
-namespace engine {
-  class Ruler;
+  class Infantry;
+  class MobileElement;
+  class State;
+  class Structure;
 }
 
-#include "state/State.h"
 #include "EngineMode.h"
 #include "state/Fighter.h"
 #include "state/Infantry.h"
-#include "Ruler.h"
+#include "state/MobileElement.h"
+#include "state/State.h"
+#include "state/Structure.h"
+#include "ActionList.h"
+#include "CommandSet.h"
 
 namespace engine {
 
@@ -34,21 +36,19 @@ namespace engine {
     engine::EngineMode mode;
     // Attributes
   protected:
-    state::State currentState;
-    std::vector<Command*> commands;
+    CommandSet* commandset;
+    ActionList* actionlist;
+    mutable std::mutex engine_mutex;
     // Operations
   public:
     ~Engine ();
-    Engine ();
+    Engine (CommandSet* commandset, ActionList* actionlist);
     EngineMode getMode () const;
-    const state::State& getState () const;
     void addCommand (Command* cmd);
-    void ProduceInfantry (int x, int y, state::ElementList * ListOfElements, state::ElementList* ListOfTurn, int playercolor);
-    void ProduceFighter (int x, int y, state::ElementList * ListOfElements, state::ElementList* ListOfTurn, int playercolor);
-    void AttackEnemy (state::Element* attacker, state::Element* defender, state::ElementList* StaticMap, state::ElementList* MapUnits);
-    void CaptureEnemy (state::Infantry* capturer, state::Structure* captured);
-    void MoveUnit (state::Element* mover, state::Element* destination, state::ElementList* StaticMapElements, state::ElementList* MapUnits);
+    void addAction (Action* action);
     bool update (int time);
+    void apply ();
+    void run ();
   protected:
     void loadLevel (const char* file_name) const;
     void setMode (EngineMode mode);
