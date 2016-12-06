@@ -329,7 +329,7 @@ void testSFML() {
 	if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfUnits, 33, 16))
 		std::cout << "an error occured" << std::endl;
         sf::Event event;
-        std::cout << "Au joueur Rouge de jouer " << std::endl;
+        std::cout << "Au joueur Rouge de commencer " << std::endl;
         
             // [Boucle principale pour l'affichage]
 	while (window.isOpen())
