@@ -55,7 +55,6 @@ namespace engine{
     std::cout<< "Vie restant de l'attaquant : " << attack->getHp() <<std::endl;
     std::cout<<"Vie restant du défenseur : " <<defend->getHp()<<std::endl;
     }
-    
 }
 
 

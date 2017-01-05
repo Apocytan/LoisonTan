@@ -8,7 +8,6 @@ namespace engine{
         this->y=y;
         this->ListOfElements=ListOfElements;
         this->ListOfTurn=ListOfTurn;
-        this->playerColor=playerColor;
     }
     
     ProduceInfantry::~ProduceInfantry (){

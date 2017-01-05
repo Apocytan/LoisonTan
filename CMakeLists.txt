@@ -23,13 +23,22 @@ set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns state ../src/state.dia)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns engine ../src/engine.dia)
 exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns ia ../src/ia.dia)
+exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns client ../src/client.dia)
+exec_program(${DIA2CODE} ARGS -d ../src -t cpp -ns server ../src/server.dia)
+
+# jsoncpp
+include_directories ("${PROJECT_SOURCE_DIR}/extern/jsoncpp-0.10.5/dist")
+file(GLOB_RECURSE jsoncpp_sources "${PROJECT_SOURCE_DIR}/extern/jsoncpp-0.10.5/dist/jsoncpp.cpp")
+#file(GLOB jsoncpp_sources "${PROJECT_SOURCE_DIR}/extern/jsoncpp-0.10.5/dist/src/lib_json/*.cpp")
 
 # Sources
 file(GLOB_RECURSE main_sources src/*.cpp)
 
 
 # Executables
-add_executable(run ${main_sources})
+#add_executable(run ${main_sources})
+# Target
+add_executable(run ${main_sources} ${jsoncpp_sources})
 
 # SFML
 if(WIN32)
@@ -43,4 +52,9 @@ if(SFML_FOUND)
   include_directories(${SFML_INCLUDE_DIR})
   target_link_libraries(run ${SFML_LIBRARIES})
 endif()
+
+
+
+
+
 

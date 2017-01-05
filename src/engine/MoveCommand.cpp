@@ -10,9 +10,10 @@ namespace engine{
         this->MapUnits=MapUnits;
     }
     MoveCommand::~MoveCommand (){
+        
     }
     CommandTypeID MoveCommand::getCommandTypeID () const{
-        return MOVECOMMAND;
+        return engine::MOVECOMMAND;
     }
     
     state::Element* MoveCommand::getMover (){

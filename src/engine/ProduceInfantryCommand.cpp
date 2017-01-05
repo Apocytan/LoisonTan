@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace engine{
-
+    
     ProduceInfantryCommand::ProduceInfantryCommand (int x, int y, state::ElementList* ListOfElements, state::ElementList* ListOfTurn, int playerColor){
         this->x=x;
         this->y=y;
@@ -14,7 +14,7 @@ namespace engine{
         
     }
     CommandTypeID ProduceInfantryCommand::getCommandTypeID () const{
-        return PRODUCEINFANTRYCOMMAND;
+        return engine::PRODUCEINFANTRYCOMMAND;
     }
     int ProduceInfantryCommand::getX (){
         return x;

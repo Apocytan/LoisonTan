@@ -2,6 +2,7 @@
 #include <iostream>
 
 namespace engine{
+    
     ProduceFighterCommand::ProduceFighterCommand (int x, int y, state::ElementList* ListOfElements, state::ElementList* ListOfTurn, int playerColor){
         this->x=x;
         this->y=y;
@@ -10,10 +11,10 @@ namespace engine{
         this->playerColor=playerColor;
     }
     ProduceFighterCommand::~ProduceFighterCommand (){
-        
+    
     }
     CommandTypeID ProduceFighterCommand::getCommandTypeID () const{
-        return PRODUCEFIGHTERCOMMAND;
+        return engine::PRODUCEFIGHTERCOMMAND;
     }
     
     int ProduceFighterCommand::getX (){

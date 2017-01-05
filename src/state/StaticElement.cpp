@@ -3,7 +3,7 @@
 namespace state {
     // Operations
     bool  StaticElement::isStatic() const{
-        return 1;
+        return true;
     }
     bool StaticElement::isSpace () const{
         return 0; // à modifier plus tard

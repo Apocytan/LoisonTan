@@ -54,7 +54,13 @@ void testSFML() {
         ListOfUnits = new state::ElementList(firstturn);
         ListOfPlayer=new state::ElementList(firstturn);
         ListOfIa=new state::ElementList(firstturn); 
-        // J0 : neutre, J1 : bleu, J2 : rouge
+
+                                                 // J0 : neutre, J1 : bleu, J2 : rouge
+            // [Création des deux joueurs]
+       /* state::Player RedPlayer;
+        state::Player BluePlayer;
+        RedPlayer.setColor(2);
+        BluePlayer.setColor(1);*/
         int playercolor=2;  
 	sf::RenderWindow window(sf::VideoMode(600, 256), "Tilemap"); // création de la fenêtre
         int x=0;
@@ -329,7 +335,7 @@ void testSFML() {
 	if (!map.load("res/Textures.png", sf::Vector2u(16, 16), ListOfUnits, 33, 16))
 		std::cout << "an error occured" << std::endl;
         sf::Event event;
-        std::cout << "Au joueur Rouge de commencer " << std::endl;
+        std::cout << "Au joueur"<<  playercolor <<"de jouer " << std::endl;
         
             // [Boucle principale pour l'affichage]
 	while (window.isOpen())
@@ -359,10 +365,7 @@ void testSFML() {
                                     
                                     playercolor--;
                                 }
-                                if(playercolor==1)
-                                    std::cout << "Au joueur Bleu de jouer " << std::endl;
-                                if(playercolor==2)
-                                    std::cout << "Au joueur Rouge de jouer " << std::endl;
+                                std::cout << "Au joueur"<<  playercolor <<"de jouer " << std::endl;
                             }
                         }
                         

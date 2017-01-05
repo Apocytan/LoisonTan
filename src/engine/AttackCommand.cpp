@@ -13,7 +13,7 @@ namespace engine{
     
     }
     CommandTypeID AttackCommand::getCommandTypeID () const{
-        return ATTACKCOMMAND;
+        return engine::ATTACKCOMMAND;
     }
     
     state::Element* AttackCommand::getAttacker (){

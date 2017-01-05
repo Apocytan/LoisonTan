@@ -14,7 +14,7 @@ namespace engine{
     
     void Capture::execute () const{
         std::string answer;
-        std::cout<<"Voulez-vous capturer la structure ? y or n"<<std::endl;
+        std::cout<<"do you want to capture this building? y or n"<<std::endl;
         std::cin>>answer;
         if(answer=="y"){
     int range = sqrt((captured->getY()-capturer->getY())*(captured->getY()-capturer->getY())+(captured->getX()-capturer->getX())*(captured->getX()-capturer->getX()));

@@ -13,7 +13,7 @@ namespace engine{
     }
     
     CommandTypeID CaptureCommand::getCommandTypeID () const{
-        return CAPTURECOMMAND;
+        return engine::CAPTURECOMMAND;
     }
             
     state::Infantry* CaptureCommand::getCapturer (){
